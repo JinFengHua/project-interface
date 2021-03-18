@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdk.projectinterface.mapper.RecordMapper">
+    <select id="findRecordByTime" resultType="com.jdk.projectinterface.bean.Record">
+        SELECT * FROM record WHERE DATE_FORMAT(record_time,'%Y-%m-%d %H:%i:%s') LIKE '%${recordTime}%'
+    </select>
+</mapper>
