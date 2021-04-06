@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
+/**
+ * 考勤记录表
+ */
 @Data
 @NoArgsConstructor
 public class Record {

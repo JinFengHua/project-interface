@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
+/**
+ * 考勤任务表
+ */
 @Data
 @NoArgsConstructor
 public class Attend {

@@ -8,15 +8,16 @@
 <body>
 <h1 align="center">接口测试</h1><br>
 <h3>账户管理</h3>
+<a href="/account/test?studentId=1">测试</a>
 <a href="/account/login?type=0&account=000001&password=000000">管理员登录</a>
 <a href="/account/login?type=1&account=000001&password=000000">教师登录</a>
 <a href="/account/login?type=2&account=000001&password=000000">学生登录</a><br>
 
 <a href="/account/addTeacher?adminId=1&account=000001&password=000000&name=张老师&sex=false&phone=13137749525&email=2116161338@qq.com&avatar=faceimages/face.jpg">教师注册</a>
-<a href="/account/addStudent?account=000001&password=000000&name=江道宽&sex=true&avatar=faceimages/face.jpg&class=0814171&face=faceimages/face.jpg&phone=13137749525&email=2116161338@qq.com">学生注册</a><br>
+<a href="/account/addStudent?account=000001&password=000000&name=江道宽&sex=true&major=0814171&phone=13137749525&email=2116161338@qq.com">学生注册</a><br>
 
 <a href="/account/modifyTeacher?teacherId=1&adminId=1&account=000001&password=222222&name=张老师&sex=false&phone=13137749525&email=2116161338@qq.com&avatar=faceimages/face.jpg">教师修改</a>
-<a href="/account/modifyStudent?studentId=1&account=000001&password=111111&name=江道宽&sex=true&avatar=faceimages/face.jpg&class=0814171&face=faceimages/face.jpg&phone=13137749525&email=2116161338@qq.com">学生修改</a><br>
+<a href="/account/modifyStudent?studentId=1&account=000001&password=111111&name=江道宽&sex=true&avatar=faceimages/face.jpg&major=0814171&face=faceimages/face.jpg&phone=13137749525&email=2116161338@qq.com">学生修改</a><br>
 
 <a href="/account/findAccount?type=1">查看所有教师用户</a>
 <a href="/account/findAccount?type=2">查看所有学生用户</a>
@@ -45,7 +46,7 @@
 <a href="/attend/findAttendByColumn?column=attend_end&value=2021-03-17">查询考勤任务（column模糊查找）</a>
 <a href="/attend/deleteAttend?attendId=5">删除考勤任务</a>
 
-<h3>考勤记录管理</h3>
+<h3>考勤记录管理（学生完成考勤任务）</h3>
 <form method="post" action="/record/doRecord" enctype="multipart/form-data">
     签到任务id<input name="attendId" type="number"><br>
     学生id<input name="studentId" type="number"><br>
@@ -59,6 +60,14 @@
 <a href="/record/findRecordByColumn?column=record_time&value=03-16">查询考勤记录（column）</a>
 <a href="/record/findRecordByMap?attend_id=3">查询考勤记录（Map）</a>
 <a href="/record/deleteRecord?attendId=2&studentId=3">删除考勤记录</a>
+
+<h3>请假管理</h3>
+<a href="/leave/addLeave?studentId=1&courseId=1&leaveTime=2021-03-16 15:36:24&backTime=2021-03-17 15:36:24&leaveReason=病了">学生提交申请</a>
+<a href="/leave/findLeaveByMap?course_id=1">查看课程的所有申请</a>
+<a href="/leave/modifyLeave?leaveId=1&time=2021-03-16 15:36:24&result=2&remark=准了">审批请假</a>
+<a href="/leave/deleteLeave?leaveId=1">撤销请假申请</a>
+
+
 <!--<img th:src="${imagePath}">-->
 
 

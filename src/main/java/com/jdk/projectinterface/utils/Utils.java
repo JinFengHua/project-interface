@@ -18,7 +18,7 @@ public class Utils {
      * @param parentPath 想要存储的文件夹名称
      * @return 存储的映射路径
      */
-    public static String saveImage(MultipartFile file, HttpServletRequest request,String parentPath){
+    public static String saveImage(MultipartFile file,String parentPath){
         if (file.isEmpty()){
             return null;
         }
@@ -32,7 +32,7 @@ public class Utils {
         try {
             File newFile = new File(folder.getAbsolutePath() + File.separator + photoPath);
             file.transferTo(newFile);
-            return request.getScheme() + "://" + request.getServerName() + ":" +request.getServerPort() + "/image/" + parentPath + "/" + photoPath;
+            return "image/" + parentPath + "/" + photoPath;
         } catch (IOException e) {
             e.printStackTrace();
         }

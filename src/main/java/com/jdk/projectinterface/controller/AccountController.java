@@ -96,17 +96,16 @@ public class AccountController {
             @RequestParam("password") String password,
             @RequestParam("name") String name,
             @RequestParam("sex") Boolean sex,
-            @RequestParam("avatar") String avatar,
-            @RequestParam("class") String classname,
-            @RequestParam("face") String face,
+            @RequestParam("major") String classname,
             @RequestParam("phone") String phone,
             @RequestParam("email") String email
     ){
         ServiceResponse<Student> response;
+        String avatar = "/image/avatars/default.jpg";
         if (!Utils.isPhone(phone) || !Utils.IsEmail(email)){
             response = ServiceResponse.createFailResponse("电话或邮箱填写有误");
         } else {
-            Student student = new Student(account,password,name,sex,avatar,classname,face,phone,email);
+            Student student = new Student(account,password,name,sex,avatar,classname,phone,email);
             response = accountService.addStudent(student);
         }
         return response;
@@ -118,14 +117,14 @@ public class AccountController {
     @GetMapping("/modifyTeacher")
     public Object modifyTeacher(
             @RequestParam("teacherId") Integer teacherId,
-            @RequestParam("adminId") Integer adminId,
-            @RequestParam("account") String account,
-            @RequestParam("password") String password,
-            @RequestParam("name") String name,
-            @RequestParam("sex") Boolean sex,
-            @RequestParam("phone") String phone,
-            @RequestParam("email") String email,
-            @RequestParam("avatar") String avatar
+            @RequestParam(value = "adminId",required = false) Integer adminId,
+            @RequestParam(value = "account",required = false) String account,
+            @RequestParam(value = "password",required = false) String password,
+            @RequestParam(value = "name",required = false) String name,
+            @RequestParam(value = "sex",required = false) Boolean sex,
+            @RequestParam(value = "phone",required = false) String phone,
+            @RequestParam(value = "email",required = false) String email,
+            @RequestParam(value = "avatar",required = false) String avatar
     ){
         ServiceResponse<Teacher> response;
         if (!Utils.isPhone(phone) || !Utils.IsEmail(email)){
@@ -141,24 +140,21 @@ public class AccountController {
     @GetMapping("/modifyStudent")
     public Object modifyStudent(
             @RequestParam("studentId") Integer studentId,
-            @RequestParam("account") String account,
-            @RequestParam("password") String password,
-            @RequestParam("name") String name,
-            @RequestParam("sex") Boolean sex,
-            @RequestParam("avatar") String avatar,
-            @RequestParam("class") String classname,
-            @RequestParam("face") String face,
-            @RequestParam("phone") String phone,
-            @RequestParam("email") String email
+            @RequestParam(value = "account",required = false) String account,
+            @RequestParam(value = "password",required = false) String password,
+            @RequestParam(value = "name",required = false) String name,
+            @RequestParam(value = "sex",required = false) Boolean sex,
+            @RequestParam(value = "avatar",required = false) String avatar,
+            @RequestParam(value = "major",required = false) String classname,
+            @RequestParam(value = "face",required = false) String face,
+            @RequestParam(value = "phone",required = false) String phone,
+            @RequestParam(value = "email",required = false) String email
     ){
         ServiceResponse<Student> response;
-        if (!Utils.isPhone(phone) || !Utils.IsEmail(email)){
-            response = ServiceResponse.createFailResponse("电话或邮箱填写有误");
-        } else {
-            Student student = new Student(account,password,name,sex,avatar,classname,face,phone,email);
-            student.setStudentId(studentId);
-            response = accountService.modifyStudent(student);
-        }
+        Student student = new Student(account,password,name,sex,avatar,classname,phone,email);
+        student.setStudentId(studentId);
+        student.setStudentFace(face);
+        response = accountService.modifyStudent(student);
         return response;
     }
 
@@ -199,14 +195,19 @@ public class AccountController {
     }
 
     /**
-     * 测试提取图片功能
+     * 验证账户是否存在
      */
-    /*@GetMapping("/show")
-    public ModelAndView showImages(@RequestParam("id") Integer id, HttpServletRequest request,ModelAndView mv){
-        mv.setViewName("index");
-        String face = accountService.findStudent(id);
-        String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/" + face;
-        mv.addObject("imagePath",path);
-        return mv;
-    }*/
+    @GetMapping("/confirmAccount")
+    public Object confirmAccount(
+            @RequestParam("type") Integer type,
+            @RequestParam("account") String account,
+            @RequestParam(value = "phone",required = false) String phone
+    ){
+        if(phone.isEmpty()) {
+            return accountService.confirmAccount(type, account);
+        } else {
+            return accountService.confirmAccount(type,account,phone);
+        }
+    }
+
 }

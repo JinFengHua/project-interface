@@ -37,7 +37,7 @@ public class CourseController {
         map.put("teacher_id",teacherId);
         map.put("course_name",name);
         if (courseService.findCourseByMap(map).getData().size() != 0){
-            return ServiceResponse.createEmptyResponse("创建课程内容重复");
+            return ServiceResponse.createEmptyResponse("创建课程已存在");
         }
         return courseService.addCourse(course);
     }
@@ -52,6 +52,15 @@ public class CourseController {
             @RequestParam("value") Object value
     ){
         return courseService.findCourseByColumn(column,value);
+    }
+
+    /**
+     * 通过模糊查询课程表
+     * @return 返回数组
+     */
+    @GetMapping("/findCourseByMap")
+    public Object findCourseByMap(@RequestParam Map<String, Object> map){
+        return courseService.findCourseByMap(map);
     }
 
     /**

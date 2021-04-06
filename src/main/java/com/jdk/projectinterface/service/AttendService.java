@@ -36,12 +36,12 @@ public class AttendService {
      */
     public ServiceResponse<List<Attend>> findAttendByColumn(String column,Object value){
         List<Attend> attends = attendMapper.selectList(new QueryWrapper<Attend>().like(column, value));
-        return ServiceResponse.createResponse("查询成功", attends);
+        return ServiceResponse.backFailResponse("查询结果为空","查询成功", attends);
     }
 
     public ServiceResponse<List<Attend>> findAttendByMap(Map<String, Object> map){
         List<Attend> attends = attendMapper.selectByMap(map);
-        return ServiceResponse.createResponse("查询成功", attends);
+        return ServiceResponse.backFailResponse("查询结果为空","查询成功", attends);
     }
 
     /**

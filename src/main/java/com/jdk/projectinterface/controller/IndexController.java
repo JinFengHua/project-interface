@@ -1,6 +1,6 @@
 package com.jdk.projectinterface.controller;
 
-import com.jdk.projectinterface.bean.Admini;
+import com.jdk.projectinterface.common.ServiceResponse;
 import com.jdk.projectinterface.utils.Utils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +15,12 @@ public class IndexController {
         return "index";
     }
 
-    @PostMapping("/test")
+    @PostMapping("/saveImage")
     @ResponseBody
-    public String test(
+    public Object test(
             @RequestParam("photo") MultipartFile photo,
-            HttpServletRequest request
+            @RequestParam("dir") String dir
     ){
-        return Utils.saveImage(photo,request,"test");
+        return ServiceResponse.createResponse(Utils.saveImage(photo,dir));
     }
 }

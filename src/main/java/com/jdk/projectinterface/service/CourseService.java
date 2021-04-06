@@ -16,7 +16,7 @@ public class CourseService {
     @Autowired
     CourseMapper courseMapper;
 
-    public ServiceResponse<Course> addCourse(Course course) {
+    public ServiceResponse addCourse(Course course) {
         String code;
         while (true){
             code = String.valueOf((int) ((Math.random() * 9 + 1) * 100000));
@@ -28,7 +28,7 @@ public class CourseService {
         course.setCourseCode(code);
         courseMapper.insert(course);
         if (course.getCourseId() != null) {
-            return ServiceResponse.createResponse(code);
+            return ServiceResponse.createResponse("创建成功",code);
         }
         return ServiceResponse.createFailResponse("添加失败");
     }
@@ -45,6 +45,10 @@ public class CourseService {
      * 根据map里的值进行准确查找
      */
     public ServiceResponse<List<Course>> findCourseByMap(Map<String, Object> map){
+        if (map.isEmpty()){
+            List<Course> allCourse = courseMapper.findAllCourse();
+            return ServiceResponse.createResponse("查询成功",allCourse);
+        }
         List<Course> courses = courseMapper.selectByMap(map);
         return ServiceResponse.createResponse("查询成功",courses);
     }

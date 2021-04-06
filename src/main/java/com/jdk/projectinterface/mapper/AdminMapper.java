@@ -1,10 +1,10 @@
 package com.jdk.projectinterface.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.jdk.projectinterface.bean.Admini;
+import com.jdk.projectinterface.bean.Admin;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AdminMapper extends BaseMapper<Admini> {
+public interface AdminMapper extends BaseMapper<Admin> {
 
 }

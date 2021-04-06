@@ -1,8 +1,7 @@
 package com.jdk.projectinterface.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.jdk.projectinterface.bean.Admini;
+import com.jdk.projectinterface.bean.Admin;
 import com.jdk.projectinterface.bean.Student;
 import com.jdk.projectinterface.bean.Teacher;
 import com.jdk.projectinterface.common.ServiceResponse;
@@ -13,6 +12,7 @@ import com.jdk.projectinterface.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,8 +36,8 @@ public class AccountService {
     public ServiceResponse accountLogin(Integer type, String username, String password){
         switch (type){
             case 0:
-                QueryWrapper<Admini> adminQuery = new QueryWrapper<Admini>().eq("admin_account",username).eq("admin_password",password);
-                Admini admin = adminMapper.selectOne(adminQuery);
+                QueryWrapper<Admin> adminQuery = new QueryWrapper<Admin>().eq("admin_account",username).eq("admin_password",password);
+                Admin admin = adminMapper.selectOne(adminQuery);
                 return ServiceResponse.backFailResponse("账号或密码错误","登陆成功",admin);
             case 1:
                 QueryWrapper<Teacher> teacherQuery = new QueryWrapper<Teacher>().eq("teacher_account",username).eq("teacher_password",password);
@@ -91,9 +91,9 @@ public class AccountService {
     /**
      *通过id和password判断管理员身份
      */
-    public ServiceResponse<Admini> findAdminById(Integer adminId,String adminPassword) {
-        QueryWrapper<Admini> queryWrapper = new QueryWrapper<Admini>().eq("admin_id",adminId).eq("admin_password",adminPassword);
-        Admini admin = adminMapper.selectOne(queryWrapper);
+    public ServiceResponse<Admin> findAdminById(Integer adminId, String adminPassword) {
+        QueryWrapper<Admin> queryWrapper = new QueryWrapper<Admin>().eq("admin_id",adminId).eq("admin_password",adminPassword);
+        Admin admin = adminMapper.selectOne(queryWrapper);
         return ServiceResponse.backFailResponse("账号或密码错误","登陆成功",admin);
     }
 
@@ -159,5 +159,40 @@ public class AccountService {
     public ServiceResponse<Student> deleteStudent(Integer accountId) {
         studentMapper.deleteById(accountId);
         return ServiceResponse.createResponse("删除失败");
+    }
+
+    /**
+     * 查询某账号是否存在
+     * 存在code为200，不存在为204
+     */
+    public Object confirmAccount(Integer type,String account) {
+        Integer count;
+        if (type == 1){
+            count = teacherMapper.selectCount(new QueryWrapper<Teacher>().eq("teacher_account", account));
+        } else {
+            count = studentMapper.selectCount(new QueryWrapper<Student>().eq("student_account", account));
+        }
+        if (count == 0) {
+            return ServiceResponse.createEmptyResponse(String.valueOf(count));
+        } else {
+            return ServiceResponse.createResponse(String.valueOf(count));
+        }
+    }
+
+    public Object confirmAccount(Integer type, String account, String phone) {
+        List<Teacher> accountTeachers = new ArrayList<>();
+        List<Student> accountStudents = new ArrayList<>();
+        if (type == 1){
+            accountTeachers = teacherMapper.selectList(new QueryWrapper<Teacher>().eq("teacher_account", account).eq("teacher_phone",phone));
+        } else {
+            accountStudents = studentMapper.selectList(new QueryWrapper<Student>().eq("student_account", account).eq("student_phone",phone));
+        }
+        if (accountStudents.size() + accountTeachers.size() == 0 ) {
+            return ServiceResponse.createEmptyResponse("0");
+        } else if (accountStudents.size() != 0){
+            return ServiceResponse.createResponse(String.valueOf(accountStudents.get(0).getStudentId()));
+        } else {
+            return ServiceResponse.createResponse(String.valueOf(accountTeachers.get(0).getTeacherId()));
+        }
     }
 }

@@ -8,6 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class UploadConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/image/**").addResourceLocations("file:F:\\毕业设计\\project-interface\\src\\main\\resources\\static\\");
+        registry.addResourceHandler("/image/**").addResourceLocations("file:F:\\graduation_project\\project-interface\\src\\main\\resources\\static\\");
     }
 }

@@ -1,11 +1,17 @@
 package com.jdk.projectinterface.bean;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+/**
+ * 教师用户表
+ */
 @Data
 @NoArgsConstructor
 public class Teacher {
@@ -19,6 +25,10 @@ public class Teacher {
     private String teacherPhone;
     private String teacherEmail;
     private String teacherAvatar;
+
+    //连表查询
+    @TableField(exist = false)
+    private List<Course> courses;
 
     public Teacher(Integer adminId, String teacherAccount, String teacherPassword, String teacherName, Boolean teacherSex, String teacherPhone, String teacherEmail, String teacherAvatar) {
         this.adminId = adminId;

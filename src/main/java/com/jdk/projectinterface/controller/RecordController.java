@@ -30,13 +30,12 @@ public class RecordController {
             @RequestParam(value = "time") String time,
             @RequestParam(value = "longitude") String longitude,
             @RequestParam(value = "latitude") String latitude,
-            @RequestParam(value = "photo") MultipartFile photo,
-            HttpServletRequest request
+            @RequestParam(value = "photo") MultipartFile photo
     ){
         /**
          * 调用Utils方法，存储图片至数据库并返回图片地址的访问地址
          */
-        String path = Utils.saveImage(photo, request, "checkimages");
+        String path = Utils.saveImage(photo, "checkimages");
         if (path.isEmpty()){
             return ServiceResponse.createFailResponse("图片上传失败，请重试");
         }
@@ -64,9 +63,9 @@ public class RecordController {
         Map<String, Object> map = new HashMap<>();
         map.put("attend_id",attendId);
         map.put("student_id",studentId);
-        Record recordQuery = recordService.findRecordByMap(map).getData().get(0);
-        if (!Utils.isEmpty(recordQuery) ){
-            Utils.deleteImage(recordQuery.getRecordPhoto(),"checkimages");
+        List<Record> data = recordService.findRecordByMap(map).getData();
+        if (data.size() > 0 ){
+            Utils.deleteImage(data.get(0).getRecordPhoto(),"checkimages");
             return recordService.modifyRecord(record);
         }
         return recordService.addRecord(record);

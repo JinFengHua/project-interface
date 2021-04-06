@@ -12,13 +12,23 @@ import java.sql.SQLIntegrityConstraintViolationException;
 public class ExceptionController {
 
     @ExceptionHandler(NullPointerException.class)
-    public Object NullPointExceptionCatch(NullPointerException e){
+    public Object NullPointExceptionH(){
         return ServiceResponse.createFailResponse("空指针异常");
     }
 
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-    public Object SQLIntegrityConstraintViolationExceptionCatch(SQLIntegrityConstraintViolationException e){
+    public Object SQLIntegrityConstraintViolationExceptionH(){
         return ServiceResponse.createFailResponse("SQL完整性约束违反异常");
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public Object illegalArgumentExceptionH(){
+        return ServiceResponse.createFailResponse("非法参数异常");
+    }
+
+    @ExceptionHandler(IndexOutOfBoundsException.class)
+    public Object IndexOutOfBoundsExceptionH(){
+        return ServiceResponse.createFailResponse("索引越界异常");
     }
 
 }

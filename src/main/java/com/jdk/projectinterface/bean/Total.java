@@ -3,6 +3,9 @@ package com.jdk.projectinterface.bean;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 课程学生统计表
+ */
 @Data
 @NoArgsConstructor
 public class Total {

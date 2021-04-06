@@ -24,7 +24,7 @@ public class TotalService {
      */
     public ServiceResponse<Total> addTotal(String courseCode,Integer studentId) {
         ServiceResponse<List<Course>> response = courseService.findCourseByColumn("course_code", courseCode);
-        if (response.getCode() != 200){
+        if (response.getData().size() == 0){
             return ServiceResponse.createEmptyResponse("邀请码不存在");
         }
 

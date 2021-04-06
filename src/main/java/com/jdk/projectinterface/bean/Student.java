@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 学生用户表
+ */
 @Data
 @NoArgsConstructor
 public class Student {
@@ -21,14 +24,13 @@ public class Student {
     private String studentPhone;
     private String studentEmail;
 
-    public Student(String studentAccount, String studentPassword, String studentName, Boolean studentSex, String studentAvatar, String studentClass, String studentFace, String studentPhone, String studentEmail) {
+    public Student(String studentAccount, String studentPassword, String studentName, Boolean studentSex, String studentAvatar, String studentClass, String studentPhone, String studentEmail) {
         this.studentAccount = studentAccount;
         this.studentPassword = studentPassword;
         this.studentName = studentName;
         this.studentSex = studentSex;
         this.studentAvatar = studentAvatar;
         this.studentClass = studentClass;
-        this.studentFace = studentFace;
         this.studentPhone = studentPhone;
         this.studentEmail = studentEmail;
     }
