@@ -8,16 +8,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class Total {
+public class CourseStudent {
     private Integer courseId;
     private Integer studentId;
-    private Integer numberSuccess;
-    private Integer numberFail;
-    private Integer numberAbsent;
-    private Integer numberLeave;
-    private Integer numberTotal;
 
-    public Total(Integer courseId, Integer studentId) {
+    public CourseStudent(Integer courseId, Integer studentId) {
         this.courseId = courseId;
         this.studentId = studentId;
     }

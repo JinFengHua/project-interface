@@ -1,10 +1,13 @@
 package com.jdk.projectinterface.bean;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * 学生用户表
@@ -23,6 +26,9 @@ public class Student {
     private String studentFace;
     private String studentPhone;
     private String studentEmail;
+
+    @TableField(exist = false)
+    private List<Record> records;
 
     public Student(String studentAccount, String studentPassword, String studentName, Boolean studentSex, String studentAvatar, String studentClass, String studentPhone, String studentEmail) {
         this.studentAccount = studentAccount;

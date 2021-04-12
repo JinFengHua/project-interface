@@ -1,9 +1,14 @@
 package com.jdk.projectinterface.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.jdk.projectinterface.bean.Attend;
 import com.jdk.projectinterface.bean.Leave;
+import com.jdk.projectinterface.bean.Record;
 import com.jdk.projectinterface.common.ServiceResponse;
+import com.jdk.projectinterface.mapper.AttendMapper;
 import com.jdk.projectinterface.mapper.LeaveMapper;
+import com.jdk.projectinterface.mapper.RecordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +19,12 @@ import java.util.Map;
 public class LeaveService {
     @Autowired
     LeaveMapper leaveMapper;
+
+    @Autowired
+    RecordMapper recordMapper;
+
+    @Autowired
+    AttendMapper attendMapper;
 
 
     public ServiceResponse<Leave> addLeave(Leave leave) {
@@ -32,6 +43,21 @@ public class LeaveService {
     }
 
     public ServiceResponse<Leave> modifyLeave(Leave leave) {
+        if (leave.getApprovalResult() == 2){
+            Record record = new Record();
+            record.setStudentId(leave.getStudentId());
+            /**
+             * 首先通过课程id找到该课程下的所有考勤任务
+             * 再选择考勤时间在请假时间内的部分，获得他们的attendID
+             * 将这些任务中该生的状态设为请假
+             */
+            List<Attend> needLeaveAttend = attendMapper.findNeedLeaveAttend(leave.getCourseId(), leave.getLeaveTime(), leave.getBackTime());
+            for (Attend attend : needLeaveAttend) {
+                record.setAttendId(attend.getAttendId());
+                record.setRecordResult(3);
+                recordMapper.update(record,new UpdateWrapper<Record>().eq("attend_id",record.getAttendId()).eq("student_id",record.getStudentId()));
+            }
+        }
         leaveMapper.updateById(leave);
         return ServiceResponse.createResponse("审批成功");
     }

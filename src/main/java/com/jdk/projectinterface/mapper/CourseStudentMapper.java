@@ -1,9 +1,9 @@
 package com.jdk.projectinterface.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.jdk.projectinterface.bean.Total;
+import com.jdk.projectinterface.bean.CourseStudent;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TotalMapper extends BaseMapper<Total> {
+public interface CourseStudentMapper extends BaseMapper<CourseStudent> {
 }

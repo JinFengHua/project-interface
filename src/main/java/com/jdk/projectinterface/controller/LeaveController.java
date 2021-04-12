@@ -37,10 +37,7 @@ public class LeaveController {
             @RequestParam("backTime") String backTime,
             @RequestParam("leaveReason") String leaveReason
     ){
-        Map<String, Object> map = new HashMap<>();
-        map.put("course_id",courseId);
-        Integer teacherId = courseService.findCourseByMap(map).getData().get(0).getTeacherId();
-        Leave leave = new Leave(teacherId,studentId,courseId, Timestamp.valueOf(leaveTime),Timestamp.valueOf(backTime),leaveReason);
+        Leave leave = new Leave(studentId,courseId, Timestamp.valueOf(leaveTime),Timestamp.valueOf(backTime),leaveReason);
         leave.setApprovalResult(0);
         return leaveService.addLeave(leave);
     }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdk.projectinterface.mapper.LeaveMapper">
+
+    <select id="findLeavedStudent" resultType="com.jdk.projectinterface.bean.Leave">
+        SELECT * FROM leave_attend WHERE
+        <![CDATA[ approval_result=2 AND course_id='${courseId}'
+        AND leave_time <='${startTime}'
+        AND back_time >='${endTime}'
+        ORDER BY leave_time ASC]]>
+    </select>
+
+</mapper>

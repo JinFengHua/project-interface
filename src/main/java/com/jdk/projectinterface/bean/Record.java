@@ -1,6 +1,7 @@
 package com.jdk.projectinterface.bean;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,18 +17,27 @@ public class Record {
     private Integer attendId;
     private Integer studentId;
     private Timestamp recordTime;
-    private Double recordLongitude;
-    private Double recordLatitude;
+    private String recordLocation;
+    /**
+     * 0代表未签，1代表失败，2代表成功,3代表请假
+     */
     private Integer recordResult;
-    private String recordRemark;
     private String recordPhoto;
 
-    public Record(Integer attendId, Integer studentId, Timestamp recordTime, Double recordLongitude, Double recordLatitude,String recordPhoto) {
+    @TableField(exist = false)
+    private Student student;
+
+    public Record(Integer attendId, Integer studentId, Timestamp recordTime, String recordLocation, String recordPhoto) {
         this.attendId = attendId;
         this.studentId = studentId;
         this.recordTime = recordTime;
-        this.recordLongitude = recordLongitude;
-        this.recordLatitude = recordLatitude;
+        this.recordLocation = recordLocation;
         this.recordPhoto = recordPhoto;
+    }
+
+    public Record(Integer attendId, Integer studentId, Integer recordResult) {
+        this.attendId = attendId;
+        this.studentId = studentId;
+        this.recordResult = recordResult;
     }
 }

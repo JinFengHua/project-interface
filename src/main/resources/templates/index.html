@@ -13,7 +13,7 @@
 <a href="/account/login?type=1&account=000001&password=000000">教师登录</a>
 <a href="/account/login?type=2&account=000001&password=000000">学生登录</a><br>
 
-<a href="/account/addTeacher?adminId=1&account=000001&password=000000&name=张老师&sex=false&phone=13137749525&email=2116161338@qq.com&avatar=faceimages/face.jpg">教师注册</a>
+<a href="/account/addTeacher?adminId=1&account=000001&password=000000&name=张老师&sex=false&phone=13137749525&email=2116161338@qq.com&avatar=avatars/user-default.png">教师注册</a>
 <a href="/account/addStudent?account=000001&password=000000&name=江道宽&sex=true&major=0814171&phone=13137749525&email=2116161338@qq.com">学生注册</a><br>
 
 <a href="/account/modifyTeacher?teacherId=1&adminId=1&account=000001&password=222222&name=张老师&sex=false&phone=13137749525&email=2116161338@qq.com&avatar=faceimages/face.jpg">教师修改</a>
@@ -26,7 +26,7 @@
 <a href="/account/deleteAccount?adminId=2&adminPassword=123456&type=1&accountId=2">删除教师</a> <br>
 
 <h3>课程管理</h3>
-<a href="/course/addCourse?teacherId=2&name=云计算&avatar=faceimages/face.jpg&introduce=云计算云计算云计算云计算云计算云计算">创建课程</a>
+<a href="/course/addCourse?teacherId=1&name=云计算&avatar=avatars/course-default.png&introduce=云计算云计算云计算云计算云计算云计算">创建课程</a>
 <a href="/course/findCourseByColumn?column=course_name&value=张">查询课程</a>
 <a href="/course/modifyCourse?courseId=2&teacherId=2&name=云计算&avatar=faceimages/face.jpg&introduce=云计算云计算云计算云计算云计算云计算">修改课程</a>
 <a href="/course/deleteCourse?id=3&password=000000">删除课程</a>
@@ -40,7 +40,7 @@
 <a href="/total/deleteTotal?courseId=3&studentId=2">删除课程学生</a>
 
 <h3>考勤任务管理</h3>
-<a href="/attend/addAttend?courseId=3&start=2021-03-16 15:36:24&end=2021-03-16 15:38:05&longitude=113.187315&latitude=33.780052">创建考勤任务</a>
+<a href="/attend/addAttend?courseId=1&start=2021-04-10 15:36:24&end=2021-03-16 16:38:05&longitude=113.187315&latitude=33.780052&location=计算机与数据科学学院">创建考勤任务</a>
 <a href="/attend/modifyAttend?attendId=3&end=2021-03-17 01:00:05&state=false">修改考勤任务</a>
 <a href="/attend/findAttendByMap?course_id=3&attend_state=false">查询考勤任务（map）</a>
 <a href="/attend/findAttendByColumn?column=attend_end&value=2021-03-17">查询考勤任务（column模糊查找）</a>
@@ -62,9 +62,9 @@
 <a href="/record/deleteRecord?attendId=2&studentId=3">删除考勤记录</a>
 
 <h3>请假管理</h3>
-<a href="/leave/addLeave?studentId=1&courseId=1&leaveTime=2021-03-16 15:36:24&backTime=2021-03-17 15:36:24&leaveReason=病了">学生提交申请</a>
+<a href="/leave/addLeave?studentId=1&courseId=1&leaveTime=2021-04-10 10:36:24&backTime=2021-04-11 15:36:24&leaveReason=不想上了">学生提交申请</a>
 <a href="/leave/findLeaveByMap?course_id=1">查看课程的所有申请</a>
-<a href="/leave/modifyLeave?leaveId=1&time=2021-03-16 15:36:24&result=2&remark=准了">审批请假</a>
+<a href="/leave/modifyLeave?leaveId=1&time=2021-04-11 12:36:24&result=2&remark=准了">审批请假</a>
 <a href="/leave/deleteLeave?leaveId=1">撤销请假申请</a>
 
 

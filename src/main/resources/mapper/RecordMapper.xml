@@ -3,7 +3,40 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jdk.projectinterface.mapper.RecordMapper">
+    <resultMap id="Record-Student" type="com.jdk.projectinterface.bean.Record">
+        <id property="studentId" column="student_id"/>
+        <id property="attendId" column="attend_id"/>
+        <result property="recordTime" column="record_time"/>
+        <result property="recordLocation" column="record_location"/>
+        <result property="recordPhoto" column="record_photo"/>
+        <result property="recordResult" column="record_result"/>
+        <association property="student" javaType="com.jdk.projectinterface.bean.Student" resultMap="studentMap"/>
+    </resultMap>
+
+    <resultMap id="studentMap" type="com.jdk.projectinterface.bean.Student">
+        <id property="studentId" column="student_id"/>
+        <id property="studentAccount" column="student_account"/>
+        <id property="studentPassword" column="student_password"/>
+        <id property="studentName" column="student_name"/>
+        <id property="studentSex" column="student_sex"/>
+        <id property="studentAvatar" column="student_avatar"/>
+        <id property="studentClass" column="student_class"/>
+        <id property="studentFace" column="student_face"/>
+        <id property="studentPhone" column="student_phone"/>
+        <id property="studentEmail" column="student_email"/>
+    </resultMap>
+
     <select id="findRecordByTime" resultType="com.jdk.projectinterface.bean.Record">
         SELECT * FROM record WHERE DATE_FORMAT(record_time,'%Y-%m-%d %H:%i:%s') LIKE '%${recordTime}%'
     </select>
+
+    <select id="findAllRecord" resultMap="Record-Student">
+        SELECT * FROM record,student where
+        record.student_id = student.student_id
+        AND record.attend_id = '${attendId}'
+        order by record.record_time asc
+    </select>
+
+
+
 </mapper>

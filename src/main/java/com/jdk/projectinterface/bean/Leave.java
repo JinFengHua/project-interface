@@ -17,7 +17,6 @@ import java.sql.Timestamp;
 public class Leave {
     @TableId(type = IdType.AUTO)
     private Integer leaveId;
-    private Integer teacherId;
     private Integer studentId;
     private Integer courseId;
     private Timestamp leaveTime;
@@ -27,8 +26,7 @@ public class Leave {
     private Integer approvalResult;
     private String approvalRemark;
 
-    public Leave(Integer teacherId, Integer studentId, Integer courseId, Timestamp leaveTime, Timestamp backTime, String leaveReason) {
-        this.teacherId = teacherId;
+    public Leave(Integer studentId, Integer courseId, Timestamp leaveTime, Timestamp backTime, String leaveReason) {
         this.studentId = studentId;
         this.courseId = courseId;
         this.leaveTime = leaveTime;

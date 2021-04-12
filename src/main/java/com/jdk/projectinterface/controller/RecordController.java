@@ -24,12 +24,11 @@ public class RecordController {
      * 进行签到操作，如果数据库没有该学生记录，则调用addRecord；若已经存在，则调用modifyRecord进行修改
      */
     @PostMapping("/doRecord")
-    public Object addRecord(
+    public Object doRecord(
             @RequestParam("attendId") Integer attendId,
             @RequestParam("studentId") Integer studentId,
             @RequestParam(value = "time") String time,
-            @RequestParam(value = "longitude") String longitude,
-            @RequestParam(value = "latitude") String latitude,
+            @RequestParam(value = "location") String location,
             @RequestParam(value = "photo") MultipartFile photo
     ){
         /**
@@ -44,31 +43,23 @@ public class RecordController {
          * 先默认始终为真
          */
         Boolean recognitionResult = true;
-        Boolean distanceResult = recordService.inClass(attendId,Double.valueOf(longitude),Double.valueOf(latitude));
-        Record record = new Record(attendId,studentId,Timestamp.valueOf(time),Double.valueOf(longitude),Double.valueOf(latitude),path);
-        if (recognitionResult && distanceResult){
-            record.setRecordResult(3);
-            record.setRecordRemark("签到成功");
-        } else if (!recognitionResult && distanceResult){
+        Record record = new Record(attendId,studentId,Timestamp.valueOf(time),location,path);
+        if (recognitionResult){
             record.setRecordResult(2);
-            record.setRecordRemark("人脸识别未通过,考勤未通过");
-        } else if (recognitionResult && !distanceResult){
-            record.setRecordResult(1);
-            record.setRecordRemark("未在考勤指定范围,考勤未通过");
         } else {
-            record.setRecordResult(0);
-            record.setRecordRemark("考勤未通过");
+            record.setRecordResult(1);
         }
 
+//        删除原有图片
         Map<String, Object> map = new HashMap<>();
         map.put("attend_id",attendId);
         map.put("student_id",studentId);
         List<Record> data = recordService.findRecordByMap(map).getData();
-        if (data.size() > 0 ){
-            Utils.deleteImage(data.get(0).getRecordPhoto(),"checkimages");
-            return recordService.modifyRecord(record);
+        if (data.get(0).getRecordPhoto() != null) {
+            Utils.deleteImage(data.get(0).getRecordPhoto(), "checkimages");
         }
-        return recordService.addRecord(record);
+
+        return recordService.modifyRecord(record);
     }
 
     @GetMapping("/modifyRecord")
@@ -81,7 +72,6 @@ public class RecordController {
         record.setAttendId(attendId);
         record.setStudentId(studentId);
         record.setRecordResult(result);
-        record.setRecordRemark("教师代签");
         return recordService.modifyRecord(record);
     }
 
@@ -102,6 +92,11 @@ public class RecordController {
     @GetMapping("/findRecordByColumn")
     public Object findRecordByColumn(String column,Object value){
         return recordService.findRecordByColumn(column,value);
+    }
+
+    @GetMapping("/findAllRecord")
+    public Object findRecordByColumn(@RequestParam("attendId") Integer attendId){
+        return recordService.findAllRecord(attendId);
     }
 
     @GetMapping("/findRecordByMap")

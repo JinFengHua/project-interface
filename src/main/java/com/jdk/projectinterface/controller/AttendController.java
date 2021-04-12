@@ -28,9 +28,10 @@ public class AttendController {
             @RequestParam("start") Timestamp start,
             @RequestParam("end") Timestamp end,
             @RequestParam("longitude") Double longitude,
-            @RequestParam("latitude") Double latitude
+            @RequestParam("latitude") Double latitude,
+            @RequestParam("location") String location
     ){
-        Attend attend = new Attend(courseId,start,end,longitude,latitude);
+        Attend attend = new Attend(courseId,start,end,longitude,latitude,location);
         return attendService.addAttend(attend);
     }
 
@@ -45,7 +46,7 @@ public class AttendController {
             @RequestParam(value = "end",required = false) Timestamp end,
             @RequestParam(value = "longitude",required = false) Double longitude,
             @RequestParam(value = "latitude",required = false) Double latitude,
-            @RequestParam(value = "state",required = false) Boolean state
+            @RequestParam(value = "location",required = false) String location
      ){
         Attend attend = new Attend();
         attend.setAttendId(attendId);
@@ -54,7 +55,7 @@ public class AttendController {
         attend.setAttendEnd(Utils.isEmpty(end) ? null : end);
         attend.setAttendLongitude(Utils.isEmpty(longitude) ? null : longitude);
         attend.setAttendLatitude(Utils.isEmpty(latitude) ? null : latitude);
-        attend.setAttendState(Utils.isEmpty(state) ? null : state);
+        attend.setAttendLocation(Utils.isEmpty(location) ? null : location);
         return attendService.modifyAttend(attend);
     }
 

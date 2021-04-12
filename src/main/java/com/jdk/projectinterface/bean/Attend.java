@@ -20,13 +20,14 @@ public class Attend {
     private Timestamp attendEnd;
     private Double attendLongitude;
     private Double attendLatitude;
-    private Boolean attendState;
+    private String attendLocation;
 
-    public Attend(Integer courseId, Timestamp attendStart, Timestamp attendEnd, Double attendLongitude, Double attendLatitude) {
+    public Attend(Integer courseId, Timestamp attendStart, Timestamp attendEnd, Double attendLongitude, Double attendLatitude, String attendLocation) {
         this.courseId = courseId;
         this.attendStart = attendStart;
         this.attendEnd = attendEnd;
         this.attendLongitude = attendLongitude;
         this.attendLatitude = attendLatitude;
+        this.attendLocation = attendLocation;
     }
 }

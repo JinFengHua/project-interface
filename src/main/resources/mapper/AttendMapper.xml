@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdk.projectinterface.mapper.AttendMapper">
+
+    <select id="findNeedLeaveAttend" resultType="com.jdk.projectinterface.bean.Attend">
+        select * from attend where
+        <![CDATA[ attend_start >'${start}' and
+        attend_end <'${end}' and course_id ='${courseId}'
+        order by attend_start asc ]]>
+    </select>
+</mapper>

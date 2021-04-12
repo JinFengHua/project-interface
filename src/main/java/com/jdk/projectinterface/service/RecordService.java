@@ -23,17 +23,16 @@ public class RecordService {
     /**
      * 学生签到
      */
-    public ServiceResponse<Record> addRecord(Record record) {
+   /* public ServiceResponse<Record> addRecord(Record record) {
         recordMapper.insert(record);
         if (record.getRecordResult() == 3){
             return ServiceResponse.createResponse(record.getRecordRemark());
         } else {
             return ServiceResponse.createResponse(record.getRecordRemark());
         }
-    }
+    }*/
 
     public ServiceResponse<Record> modifyRecord(Record record){
-
         recordMapper.update(record, new QueryWrapper<Record>().eq("attend_id", record.getAttendId()).eq("student_id", record.getStudentId()));
         return ServiceResponse.createResponse("修改成功");
     }
@@ -43,6 +42,12 @@ public class RecordService {
      */
     public ServiceResponse<List<Record>> findRecordByMap(Map<String,Object> map) {
         List<Record> records = recordMapper.selectByMap(map);
+        return ServiceResponse.createResponse("查找成功",records);
+    }
+
+//    通过考勤id查询到当前所有该考勤下的数据
+    public ServiceResponse<List<Record>> findAllRecord(Integer attendId){
+        List<Record> records = recordMapper.findAllRecord(attendId);
         return ServiceResponse.createResponse("查找成功",records);
     }
 
