@@ -1,6 +1,7 @@
 package com.jdk.projectinterface.bean;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -25,6 +26,9 @@ public class Leave {
     private Timestamp approvalTime;
     private Integer approvalResult;
     private String approvalRemark;
+
+    @TableField(exist = false)
+    private Student student;
 
     public Leave(Integer studentId, Integer courseId, Timestamp leaveTime, Timestamp backTime, String leaveReason) {
         this.studentId = studentId;

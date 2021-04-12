@@ -50,6 +50,14 @@ public class LeaveController {
         return leaveService.findLeaveByMap(map);
     }
 
+    /**
+     * 查询所有该课程的请假申请
+     */
+    @GetMapping("/findAllLeave")
+    public Object findAllLeave(@RequestParam("courseId") Integer courseId){
+        return leaveService.findAllLeave(courseId);
+    }
+
     @GetMapping("/findLeaveByColumn")
     public Object findLeaveByColumn(
             @RequestParam("column") String column,

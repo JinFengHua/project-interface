@@ -101,7 +101,7 @@ public class AccountController {
             @RequestParam("email") String email
     ){
         ServiceResponse<Student> response;
-        String avatar = "/image/avatars/default.jpg";
+        String avatar = "/image/avatars/user-default.png";
         if (!Utils.isPhone(phone) || !Utils.IsEmail(email)){
             response = ServiceResponse.createFailResponse("电话或邮箱填写有误");
         } else {

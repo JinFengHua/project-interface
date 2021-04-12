@@ -29,6 +29,8 @@ public class Student {
 
     @TableField(exist = false)
     private List<Record> records;
+    @TableField(exist = false)
+    private List<Leave> leaves;
 
     public Student(String studentAccount, String studentPassword, String studentName, Boolean studentSex, String studentAvatar, String studentClass, String studentPhone, String studentEmail) {
         this.studentAccount = studentAccount;

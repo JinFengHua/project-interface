@@ -3,6 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jdk.projectinterface.mapper.LeaveMapper">
+    <resultMap id="Leave-Student" type="com.jdk.projectinterface.bean.Leave">
+        <id property="leaveId" column="leave_id"/>
+        <result property="studentId" column="student_id"/>
+        <result property="courseId" column="course_id"/>
+        <result property="leaveTime" column="leave_time"/>
+        <result property="backTime" column="back_time"/>
+        <result property="leaveReason" column="leave_reason"/>
+        <result property="approvalTime" column="approval_time"/>
+        <result property="approvalResult" column="approval_result"/>
+        <result property="approvalRemark" column="approval_remark"/>
+        <association property="student" javaType="com.jdk.projectinterface.bean.Student" resultMap="com.jdk.projectinterface.mapper.RecordMapper.studentMap"/>
+    </resultMap>
 
     <select id="findLeavedStudent" resultType="com.jdk.projectinterface.bean.Leave">
         SELECT * FROM leave_attend WHERE
@@ -10,6 +22,12 @@
         AND leave_time <='${startTime}'
         AND back_time >='${endTime}'
         ORDER BY leave_time ASC]]>
+    </select>
+
+    <select id="findAllLeave" resultMap="Leave-Student">
+        SELECT * FROM leave_attend,student
+        WHERE leave_attend.student_id = student.student_id
+        AND leave_attend.course_id = '${courseId}'
     </select>
 
 </mapper>

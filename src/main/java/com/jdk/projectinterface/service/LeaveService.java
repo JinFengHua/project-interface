@@ -66,4 +66,10 @@ public class LeaveService {
         leaveMapper.deleteById(leaveId);
         return ServiceResponse.createResponse("删除成功");
     }
+
+    public ServiceResponse<List<Leave>> findAllLeave(Integer courseId) {
+        List<Leave> allLeave = leaveMapper.findAllLeave(courseId);
+        return ServiceResponse.createResponse("查询成功",allLeave);
+
+    }
 }

@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: net.bytebuddy:byte-buddy:1.10.20">
     <CLASSES>
-      <root url="jar://F:/Games/IntelliJ IDEA 2019.3/repository/net/bytebuddy/byte-buddy/1.10.20/byte-buddy-1.10.20.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy/1.10.20/byte-buddy-1.10.20.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://F:/Games/IntelliJ IDEA 2019.3/repository/net/bytebuddy/byte-buddy/1.10.20/byte-buddy-1.10.20-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy/1.10.20/byte-buddy-1.10.20-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://F:/Games/IntelliJ IDEA 2019.3/repository/net/bytebuddy/byte-buddy/1.10.20/byte-buddy-1.10.20-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy/1.10.20/byte-buddy-1.10.20-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -12,4 +12,6 @@ public interface LeaveMapper extends BaseMapper<Leave> {
 
     List<Leave> findLeavedStudent(Integer courseId, Timestamp startTime, Timestamp endTime);
 
+    List<Leave> findAllLeave(Integer courseId);
+
 }
