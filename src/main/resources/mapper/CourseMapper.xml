@@ -26,9 +26,10 @@
         <result property="teacherAvatar" column="teacher_avatar"/>
     </resultMap>
 
-    <select id="findAllCourse" resultMap="UnionTableQuery">
+    <select id="findTeacherAllCourse" resultMap="UnionTableQuery">
         SELECT *
         FROM course,teacher
         WHERE course.teacher_id = teacher.teacher_id
+        and course.teacher_id='${teacherId}'
     </select>
 </mapper>

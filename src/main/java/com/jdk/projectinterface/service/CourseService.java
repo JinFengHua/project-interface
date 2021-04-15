@@ -6,6 +6,7 @@ import com.jdk.projectinterface.bean.CourseStudent;
 import com.jdk.projectinterface.common.ServiceResponse;
 import com.jdk.projectinterface.mapper.CourseMapper;
 import com.jdk.projectinterface.mapper.CourseStudentMapper;
+import com.jdk.projectinterface.mapper.TeacherMapper;
 import com.jdk.projectinterface.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class CourseService {
 
     @Autowired
     CourseStudentMapper courseStudentMapper;
+
+    @Autowired
+    TeacherMapper teacherMapper;
 
     public ServiceResponse addCourse(Course course) {
         String code;
@@ -51,10 +55,6 @@ public class CourseService {
      * 根据map里的值进行准确查找
      */
     public ServiceResponse<List<Course>> findCourseByMap(Map<String, Object> map){
-        if (map.isEmpty()){
-            List<Course> allCourse = courseMapper.findAllCourse();
-            return ServiceResponse.createResponse("查询成功",allCourse);
-        }
         List<Course> courses = courseMapper.selectByMap(map);
         return ServiceResponse.createResponse("查询成功",courses);
     }
@@ -70,11 +70,17 @@ public class CourseService {
         return ServiceResponse.createResponse("删除成功");
     }
 
+    public ServiceResponse<List<Course>> findCourseByTeacherId(Integer teacherId){
+        List<Course> courses = courseMapper.findTeacherAllCourse(teacherId);
+        return ServiceResponse.createResponse("查询成功",courses);
+    }
+
     public ServiceResponse<List<Course>> findCourseByStudentId(Integer studentId) {
         List<CourseStudent> courseIdList = courseStudentMapper.selectList(new QueryWrapper<CourseStudent>().eq("student_id", studentId));
         List<Course> courseList = new ArrayList<>();
         for (CourseStudent courseStudent : courseIdList) {
             Course course = courseMapper.selectById(courseStudent.getCourseId());
+            course.setTeacher(teacherMapper.selectById(course.getTeacherId()));
             courseList.add(course);
         }
         return ServiceResponse.createResponse("查询成功",courseList);

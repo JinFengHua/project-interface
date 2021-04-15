@@ -65,8 +65,13 @@ public class CourseController {
     }
 
     @GetMapping("/findCourseByStudentId")
-    public Object findCourseByStudentId(@RequestParam("student_id") Integer studentId){
+    public Object findCourseByStudentId(@RequestParam("studentId") Integer studentId){
         return courseService.findCourseByStudentId(studentId);
+    }
+
+    @GetMapping("/findCourseByTeacherId")
+    public Object findCourseByTeacherId(@RequestParam("teacherId") Integer teacherId){
+        return courseService.findCourseByTeacherId(teacherId);
     }
 
     /**
@@ -98,17 +103,11 @@ public class CourseController {
     /**
      * 删除课程，如果课程关联的外键还有数据则不允许删除
      * @param courseId 课程的id
-     * @param password 创建课程老师的登录密码
      */
     @GetMapping("/deleteCourse")
     public Object deleteCourse(
-            @RequestParam("id") Integer courseId,
-            @RequestParam("password") String password
+            @RequestParam("id") Integer courseId
     ){
-        Course course = courseService.findCourseByColumn("course_id",courseId).getData().get(0);
-        if (!password.equals(accountService.findTeacher("teacher_id",course.getTeacherId()).getData().get(0).getTeacherPassword())){
-            return ServiceResponse.createFailResponse("密码错误！！！");
-        }
         return courseService.deleteCourse(courseId);
     }
 }

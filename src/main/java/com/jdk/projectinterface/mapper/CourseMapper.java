@@ -10,5 +10,5 @@ import java.util.List;
 public interface CourseMapper extends BaseMapper<Course> {
 
 //    联表查询
-    List<Course> findAllCourse();
+    List<Course> findTeacherAllCourse(Integer teacherId);
 }
