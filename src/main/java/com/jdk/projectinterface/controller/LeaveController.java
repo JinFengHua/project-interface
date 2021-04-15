@@ -58,6 +58,11 @@ public class LeaveController {
         return leaveService.findAllLeave(courseId);
     }
 
+    @GetMapping("/findAllLeaveByStudentId")
+    public Object findAllLeaveByStudentId(@RequestParam("studentId") Integer studentId){
+        return leaveService.findAllLeaveByStudentId(studentId);
+    }
+
     @GetMapping("/findLeaveByColumn")
     public Object findLeaveByColumn(
             @RequestParam("column") String column,

@@ -67,12 +67,13 @@ public class CourseStudentService {
         return ServiceResponse.createResponse("删除成功");
     }
 
-    public ServiceResponse<List<Student>> findAllByCourseId(Integer courseId) {
-        List<CourseStudent> courseStudents = courseStudentMapper.selectList(new QueryWrapper<CourseStudent>().eq("course_id", courseId));
+    public ServiceResponse<List<CourseStudent>> findAllByCourseId(Integer courseId) {
+        /*List<CourseStudent> courseStudents = courseStudentMapper.selectList(new QueryWrapper<CourseStudent>().eq("course_id", courseId));
         List<Student> students = new ArrayList<>();
         for (CourseStudent courseStudent : courseStudents) {
             students.add(studentMapper.selectById(courseStudent.getStudentId()));
-        }
+        }*/
+        List<CourseStudent> students = courseStudentMapper.findStudentByCourseId(courseId);
         return ServiceResponse.createResponse("查询成功",students);
     }
 }

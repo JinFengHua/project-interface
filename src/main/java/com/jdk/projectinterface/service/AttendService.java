@@ -87,6 +87,11 @@ public class AttendService {
         return ServiceResponse.backFailResponse("查询结果为空","查询成功", attends);
     }
 
+    public ServiceResponse<List<Attend>> findAttendByCourseId(Integer courseId){
+        List<Attend> attends = attendMapper.selectList(new QueryWrapper<Attend>().eq("course_id", courseId).orderByDesc("attend_start"));
+        return ServiceResponse.createResponse("查询成功",attends);
+    }
+
     /**
      * 删除
      */

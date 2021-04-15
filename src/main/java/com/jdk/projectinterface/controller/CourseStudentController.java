@@ -43,6 +43,9 @@ public class CourseStudentController {
         return courseStudentService.findCourseStudentByColumn(column,value);
     }
 
+    /**
+     * 查找属于某个课程的所有学生
+     */
     @GetMapping("/findAllByCourseId")
     public Object findAll(@RequestParam("courseId") Integer courseId){
         return courseStudentService.findAllByCourseId(courseId);

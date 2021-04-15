@@ -109,4 +109,9 @@ public class RecordController {
         return recordService.findRecordByTime(time);
     }
 
+    @GetMapping("/findAllStudentRecord")
+    public Object findAllStudentRecord(@RequestParam("courseId") Integer courseId){
+        return recordService.findAllStudentRecord(courseId);
+    }
+
 }

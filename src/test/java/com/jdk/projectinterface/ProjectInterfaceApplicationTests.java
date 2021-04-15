@@ -1,12 +1,19 @@
 package com.jdk.projectinterface;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.jdk.projectinterface.bean.Course;
 import com.jdk.projectinterface.bean.Leave;
 import com.jdk.projectinterface.bean.Record;
+import com.jdk.projectinterface.bean.Statistics;
+import com.jdk.projectinterface.common.ServiceResponse;
 import com.jdk.projectinterface.mapper.CourseMapper;
 import com.jdk.projectinterface.mapper.LeaveMapper;
 import com.jdk.projectinterface.mapper.RecordMapper;
+import com.jdk.projectinterface.service.AccountService;
+import com.jdk.projectinterface.service.CourseService;
+import com.jdk.projectinterface.service.RecordService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,10 +29,16 @@ class ProjectInterfaceApplicationTests {
     CourseMapper courseMapper;
 
     @Autowired
+    AccountService accountService;
+
+    @Autowired
+    CourseService courseService;
+
+    @Autowired
     RecordMapper recordMapper;
 
     @Autowired
-    LeaveMapper leaveMapper;
+    RecordService service;
 
     @Test
     void insertTest(){
@@ -37,8 +50,9 @@ class ProjectInterfaceApplicationTests {
 
     @Test
     void contextLoads() {
-        String imagePath = new File("").getAbsolutePath() + "\\src\\main\\resources\\static\\";
-        System.out.println("file:" + imagePath);
+        ServiceResponse<List<Course>> courseByStudentId = courseService.findCourseByStudentId(1);
+        String s = courseByStudentId.toString();
+        System.out.println(JSONObject.parse(s));
     }
 
 }

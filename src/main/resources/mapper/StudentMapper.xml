@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdk.projectinterface.mapper.CourseStudentMapper">
+    <resultMap id="CourseStudent-Student" type="com.jdk.projectinterface.bean.CourseStudent">
+        <id property="studentId" column="student_id"/>
+        <id property="courseId" column="course_id"/>
+        <association property="student" javaType="com.jdk.projectinterface.bean.Student" resultMap="com.jdk.projectinterface.mapper.RecordMapper.studentMap"/>
+    </resultMap>
+
+    <select id="findStudentByCourseId" resultMap="CourseStudent-Student">
+        SELECT * FROM student AS s,course_student as c
+        WHERE s.student_id = c.student_id AND c.course_id = '${courseId}'
+        ORDER BY s.student_account ASC;
+    </select>
+</mapper>

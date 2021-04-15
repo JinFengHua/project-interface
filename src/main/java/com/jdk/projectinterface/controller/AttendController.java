@@ -75,6 +75,11 @@ public class AttendController {
         return attendService.findAttendByMap(map);
     }
 
+    @GetMapping("/findAttendByCourseId")
+    public Object findAttendByCourseId(@RequestParam("courseId") Integer courseId){
+        return attendService.findAttendByCourseId(courseId);
+    }
+
     /**
      * 删除
      */

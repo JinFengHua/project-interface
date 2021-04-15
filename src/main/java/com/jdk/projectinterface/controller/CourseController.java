@@ -5,6 +5,7 @@ import com.jdk.projectinterface.bean.Course;
 import com.jdk.projectinterface.common.ServiceResponse;
 import com.jdk.projectinterface.service.AccountService;
 import com.jdk.projectinterface.service.CourseService;
+import com.jdk.projectinterface.service.CourseStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,27 +64,33 @@ public class CourseController {
         return courseService.findCourseByMap(map);
     }
 
+    @GetMapping("/findCourseByStudentId")
+    public Object findCourseByStudentId(@RequestParam("student_id") Integer studentId){
+        return courseService.findCourseByStudentId(studentId);
+    }
+
     /**
      * 修改课程，如果修改后的名称在数据库重复，取消修改操作
      */
     @GetMapping("/modifyCourse")
     public Object modifyCourse(
             @RequestParam("courseId") Integer courseId,
-            @RequestParam("teacherId") Integer teacherId,
-            @RequestParam("name") String courseName,
-            @RequestParam("avatar") String courseAvatar,
-            @RequestParam("introduce") String courseIntroduce
+            @RequestParam(value = "courseName",required = false) String courseName,
+            @RequestParam(value = "courseAvatar",required = false) String courseAvatar,
+            @RequestParam(value = "courseIntroduce", required = false) String courseIntroduce
     ){
-        Course courseOld = courseService.findCourseByColumn("course_id", courseId).getData().get(0);
-        if (!courseOld.getCourseName().equals(courseName)){
-            Map<String, Object> map = new HashMap<>();
-            map.put("teacher_id",teacherId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("course_id",courseId);
+        Course courseOld = courseService.findCourseByMap(map).getData().get(0);
+        map.clear();
+        if (courseName != null){
+            map.put("teacher_id",courseOld.getTeacherId());
             map.put("course_name",courseName);
             if (courseService.findCourseByMap(map).getData().size() != 0){
                 return ServiceResponse.createEmptyResponse("修改课程内容重复");
             }
         }
-        Course course = new Course(teacherId, courseName, courseAvatar, courseIntroduce);
+        Course course = new Course(courseOld.getTeacherId(), courseName, courseAvatar, courseIntroduce);
         course.setCourseId(courseId);
         return courseService.modifyCourse(course);
     }

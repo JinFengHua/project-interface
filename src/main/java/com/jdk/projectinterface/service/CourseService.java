@@ -2,12 +2,15 @@ package com.jdk.projectinterface.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jdk.projectinterface.bean.Course;
+import com.jdk.projectinterface.bean.CourseStudent;
 import com.jdk.projectinterface.common.ServiceResponse;
 import com.jdk.projectinterface.mapper.CourseMapper;
+import com.jdk.projectinterface.mapper.CourseStudentMapper;
 import com.jdk.projectinterface.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +18,9 @@ import java.util.Map;
 public class CourseService {
     @Autowired
     CourseMapper courseMapper;
+
+    @Autowired
+    CourseStudentMapper courseStudentMapper;
 
     public ServiceResponse addCourse(Course course) {
         String code;
@@ -62,5 +68,15 @@ public class CourseService {
     public ServiceResponse<Course> deleteCourse(Integer courseId) {
         courseMapper.deleteById(courseId);
         return ServiceResponse.createResponse("删除成功");
+    }
+
+    public ServiceResponse<List<Course>> findCourseByStudentId(Integer studentId) {
+        List<CourseStudent> courseIdList = courseStudentMapper.selectList(new QueryWrapper<CourseStudent>().eq("student_id", studentId));
+        List<Course> courseList = new ArrayList<>();
+        for (CourseStudent courseStudent : courseIdList) {
+            Course course = courseMapper.selectById(courseStudent.getCourseId());
+            courseList.add(course);
+        }
+        return ServiceResponse.createResponse("查询成功",courseList);
     }
 }

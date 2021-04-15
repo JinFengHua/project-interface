@@ -34,7 +34,7 @@
         SELECT * FROM record,student where
         record.student_id = student.student_id
         AND record.attend_id = '${attendId}'
-        order by record.record_time asc
+        order by record.record_time desc,student.student_account
     </select>
 
 

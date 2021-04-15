@@ -1,13 +1,14 @@
 package com.jdk.projectinterface.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.jdk.projectinterface.bean.Attend;
-import com.jdk.projectinterface.bean.Record;
+import com.jdk.projectinterface.bean.*;
 import com.jdk.projectinterface.common.ServiceResponse;
+import com.jdk.projectinterface.mapper.CourseStudentMapper;
 import com.jdk.projectinterface.mapper.RecordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,9 @@ public class RecordService {
 
     @Autowired
     AttendService attendService;
+
+    @Autowired
+    CourseStudentService courseStudentService;
 
     /**
      * 学生签到
@@ -86,4 +90,26 @@ public class RecordService {
         return ServiceResponse.createResponse("删除成功");
     }
 
+    /**
+     * 统计所有学生的考勤记录
+     */
+    public ServiceResponse<List<Statistics>> findAllStudentRecord(Integer courseId) {
+        List<CourseStudent> allStudent = courseStudentService.findAllByCourseId(courseId).getData();
+        QueryWrapper<Record> wrapper = new QueryWrapper<>();
+        List<Statistics> list = new ArrayList<>();
+        for (CourseStudent courseStudent : allStudent) {
+            Student student = courseStudent.getStudent();
+            Integer absentNum = recordMapper.selectCount(wrapper.eq("student_id", student.getStudentId()).eq("record_result", 0));
+            wrapper.clear();
+            Integer failNum = recordMapper.selectCount(wrapper.eq("student_id", student.getStudentId()).eq("record_result", 1));
+            wrapper.clear();
+            Integer successNum = recordMapper.selectCount(wrapper.eq("student_id", student.getStudentId()).eq("record_result", 2));
+            wrapper.clear();
+            Integer leaveNum = recordMapper.selectCount(wrapper.eq("student_id", student.getStudentId()).eq("record_result", 3));
+            wrapper.clear();
+
+            list.add(new Statistics(student.getStudentName(),student.getStudentAccount(),absentNum,failNum,successNum,leaveNum));
+        }
+        return ServiceResponse.createResponse("查询成功",list);
+    }
 }
