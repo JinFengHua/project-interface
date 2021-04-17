@@ -50,9 +50,8 @@ class ProjectInterfaceApplicationTests {
 
     @Test
     void contextLoads() {
-        ServiceResponse<List<Course>> courseByStudentId = courseService.findCourseByStudentId(1);
-        String s = courseByStudentId.toString();
-        System.out.println(JSONObject.parse(s));
+        ServiceResponse<Course> courseByCode = courseService.findCourseByCode("396973");
+        System.out.println(courseByCode.toString());
     }
 
 }

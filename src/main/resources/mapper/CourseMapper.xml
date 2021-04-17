@@ -32,4 +32,10 @@
         WHERE course.teacher_id = teacher.teacher_id
         and course.teacher_id='${teacherId}'
     </select>
+    <select id="findCourseByCode" resultMap="UnionTableQuery">
+        SELECT *
+        FROM course,teacher
+        WHERE course.teacher_id = teacher.teacher_id
+        and course.course_code='${code}'
+    </select>
 </mapper>

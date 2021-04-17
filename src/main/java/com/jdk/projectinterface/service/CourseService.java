@@ -70,10 +70,17 @@ public class CourseService {
         return ServiceResponse.createResponse("删除成功");
     }
 
+    public ServiceResponse<Course> findCourseByCode(String code) {
+        Course course = courseMapper.findCourseByCode(code);
+        return ServiceResponse.createResponse("查询成功",course);
+    }
+
     public ServiceResponse<List<Course>> findCourseByTeacherId(Integer teacherId){
         List<Course> courses = courseMapper.findTeacherAllCourse(teacherId);
         return ServiceResponse.createResponse("查询成功",courses);
     }
+
+
 
     public ServiceResponse<List<Course>> findCourseByStudentId(Integer studentId) {
         List<CourseStudent> courseIdList = courseStudentMapper.selectList(new QueryWrapper<CourseStudent>().eq("student_id", studentId));

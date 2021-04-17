@@ -69,6 +69,11 @@ public class CourseController {
         return courseService.findCourseByStudentId(studentId);
     }
 
+    @GetMapping("/findCourseByCode")
+    public Object findCourseByCode(@RequestParam("code") String code){
+        return courseService.findCourseByCode(code);
+    }
+
     @GetMapping("/findCourseByTeacherId")
     public Object findCourseByTeacherId(@RequestParam("teacherId") Integer teacherId){
         return courseService.findCourseByTeacherId(teacherId);
@@ -101,7 +106,7 @@ public class CourseController {
     }
 
     /**
-     * 删除课程，如果课程关联的外键还有数据则不允许删除
+     * 删除课程
      * @param courseId 课程的id
      */
     @GetMapping("/deleteCourse")

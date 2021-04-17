@@ -11,4 +11,6 @@ public interface CourseMapper extends BaseMapper<Course> {
 
 //    联表查询
     List<Course> findTeacherAllCourse(Integer teacherId);
+
+    Course findCourseByCode(String code);
 }
