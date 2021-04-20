@@ -80,6 +80,11 @@ public class AttendController {
         return attendService.findAttendByCourseId(courseId);
     }
 
+    @GetMapping("/findStudentAttend")
+    public Object findStudentAttend(@RequestParam("courseId") Integer courseId,@RequestParam("joinTime") Timestamp joinTime){
+        return attendService.findStudentAttend(courseId,joinTime);
+    }
+
     /**
      * 删除
      */

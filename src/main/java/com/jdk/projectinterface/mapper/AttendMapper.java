@@ -12,4 +12,5 @@ public interface AttendMapper extends BaseMapper<Attend> {
 
     List<Attend> findNeedLeaveAttend(Integer courseId, Timestamp start, Timestamp end);
 
+    List<Attend> findStudentAttend(Integer courseId, Timestamp joinTime);
 }

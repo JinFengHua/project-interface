@@ -6,6 +6,7 @@
     <resultMap id="CourseStudent-Student" type="com.jdk.projectinterface.bean.CourseStudent">
         <id property="studentId" column="student_id"/>
         <id property="courseId" column="course_id"/>
+        <result property="joinTime" column="join_time"/>
         <association property="student" javaType="com.jdk.projectinterface.bean.Student" resultMap="com.jdk.projectinterface.mapper.RecordMapper.studentMap"/>
     </resultMap>
 

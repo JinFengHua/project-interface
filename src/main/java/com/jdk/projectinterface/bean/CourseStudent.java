@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
 public class CourseStudent {
     private Integer courseId;
     private Integer studentId;
+    private Timestamp joinTime;
 
     @TableField(exist = false)
     private Student student;

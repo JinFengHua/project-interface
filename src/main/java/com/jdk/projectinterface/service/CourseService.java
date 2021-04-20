@@ -38,6 +38,10 @@ public class CourseService {
         course.setCourseCode(code);
         courseMapper.insert(course);
         if (course.getCourseId() != null) {
+//            修改课程头像名称并重写入数据库
+            String s = Utils.renameImage(course.getCourseAvatar(), "c" + course.getCourseId());
+            course.setCourseAvatar(s);
+            courseMapper.updateById(course);
             return ServiceResponse.createResponse("创建成功",code);
         }
         return ServiceResponse.createFailResponse("添加失败");
@@ -88,6 +92,7 @@ public class CourseService {
         for (CourseStudent courseStudent : courseIdList) {
             Course course = courseMapper.selectById(courseStudent.getCourseId());
             course.setTeacher(teacherMapper.selectById(course.getTeacherId()));
+            course.setJoinTime(courseStudent.getJoinTime());
             courseList.add(course);
         }
         return ServiceResponse.createResponse("查询成功",courseList);

@@ -47,15 +47,15 @@
 <a href="/attend/deleteAttend?attendId=5">删除考勤任务</a>
 
 <h3>考勤记录管理（学生完成考勤任务）</h3>
-<form method="post" action="/record/doRecord" enctype="multipart/form-data">
-    签到任务id<input name="attendId" type="number"><br>
-    学生id<input name="studentId" type="number"><br>
-    签到时间<input name="time" type="text"><br>
-    坐标经度<input name="longitude" type="text"><br>
-    坐标纬度<input name="latitude" type="text"><br>
+<a href="/record/doRecord?attendId=1&studentId=1&time=2021-04-14 16:38:05&location=河南城建学院">执行签到</a>
+
+<form method="post" action="/document/saveImage" enctype="multipart/form-data">
+    type<input name="type" type="text"><br>
+    id<input name="id" type="text"><br>
     图片文件<input name="photo" type="file"><br>
     <input type="submit" th:value="提交">
 </form><br>
+
 <a href="/record/modifyRecord?attendId=2&studentId=2&result=2" methods="post">修改考勤记录(允许教师修改，或者学生在规定时间重复提交)</a>
 <a href="/record/findRecordByColumn?column=record_time&value=03-16">查询考勤记录（column）</a>
 <a href="/record/findRecordByMap?attend_id=3">查询考勤记录（Map）</a>

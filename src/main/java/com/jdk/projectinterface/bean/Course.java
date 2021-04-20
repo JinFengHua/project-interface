@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 /**
  * 课程表
  */
@@ -19,6 +21,9 @@ public class Course {
     private String courseAvatar;
     private String courseIntroduce;
     private String courseCode;
+
+    @TableField(exist = false)
+    private Timestamp joinTime;
 
     //测试连表查询
     @TableField(exist = false)

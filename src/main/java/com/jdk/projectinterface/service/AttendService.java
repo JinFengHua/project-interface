@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -98,5 +99,10 @@ public class AttendService {
     public ServiceResponse<Attend> deleteAttend(Integer attendId){
         attendMapper.deleteById(attendId);
         return ServiceResponse.createResponse("删除成功");
+    }
+
+    public ServiceResponse<List<Attend>> findStudentAttend(Integer courseId, Timestamp joinTime) {
+        List<Attend> attends = attendMapper.findStudentAttend(courseId,joinTime);
+        return ServiceResponse.createResponse("查询成功",attends);
     }
 }

@@ -23,40 +23,27 @@ public class RecordController {
     /**
      * 进行签到操作，如果数据库没有该学生记录，则调用addRecord；若已经存在，则调用modifyRecord进行修改
      */
-    @PostMapping("/doRecord")
+    @GetMapping("/doRecord")
     public Object doRecord(
             @RequestParam("attendId") Integer attendId,
             @RequestParam("studentId") Integer studentId,
             @RequestParam(value = "time") String time,
-            @RequestParam(value = "location") String location,
-            @RequestParam(value = "photo") MultipartFile photo
+            @RequestParam(value = "location") String location
     ){
-        /**
-         * 调用Utils方法，存储图片至数据库并返回图片地址的访问地址
-         */
-        String path = Utils.saveImage(photo, "checkimages");
-        if (path.isEmpty()){
-            return ServiceResponse.createFailResponse("图片上传失败，请重试");
-        }
         /**
          * 从数据库查看当前学生的人脸信息位置，并与签到上传的图片进行比对识别，返回true或false
          * 先默认始终为真
          */
-        Boolean recognitionResult = true;
-        Record record = new Record(attendId,studentId,Timestamp.valueOf(time),location,path);
+        String path2 = "src/main/resources/static/check/" + studentId + "_" + attendId + ".png";
+        String path1 = "src/main/resources/static/face/" + studentId + ".png";
+        Float confidence = Utils.doIdentify(path1, path2);
+        Boolean recognitionResult = confidence < 70;
+        System.out.println(recognitionResult);
+        Record record = new Record(attendId,studentId,Timestamp.valueOf(time),location,path2);
         if (recognitionResult){
             record.setRecordResult(2);
         } else {
             record.setRecordResult(1);
-        }
-
-//        删除原有图片
-        Map<String, Object> map = new HashMap<>();
-        map.put("attend_id",attendId);
-        map.put("student_id",studentId);
-        List<Record> data = recordService.findRecordByMap(map).getData();
-        if (data.get(0).getRecordPhoto() != null) {
-            Utils.deleteImage(data.get(0).getRecordPhoto(), "checkimages");
         }
 
         return recordService.modifyRecord(record);

@@ -10,4 +10,9 @@
         attend_end <'${end}' and course_id ='${courseId}'
         order by attend_start asc ]]>
     </select>
+    <select id="findStudentAttend" resultType="com.jdk.projectinterface.bean.Attend">
+        select * from attend where
+        <![CDATA[ attend_start > '${joinTime}' and course_id ='${courseId}'
+        order by attend_start asc ]]>
+    </select>
 </mapper>

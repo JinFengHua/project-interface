@@ -14,13 +14,4 @@ public class IndexController {
     public String showIndex(){
         return "index";
     }
-
-    @PostMapping("/saveImage")
-    @ResponseBody
-    public Object test(
-            @RequestParam("photo") MultipartFile photo,
-            @RequestParam("dir") String dir
-    ){
-        return ServiceResponse.createResponse(Utils.saveImage(photo,dir));
-    }
 }

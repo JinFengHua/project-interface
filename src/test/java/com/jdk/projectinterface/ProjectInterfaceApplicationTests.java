@@ -3,22 +3,21 @@ package com.jdk.projectinterface;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.jdk.projectinterface.bean.Course;
-import com.jdk.projectinterface.bean.Leave;
-import com.jdk.projectinterface.bean.Record;
-import com.jdk.projectinterface.bean.Statistics;
+import com.jdk.projectinterface.bean.*;
 import com.jdk.projectinterface.common.ServiceResponse;
 import com.jdk.projectinterface.mapper.CourseMapper;
 import com.jdk.projectinterface.mapper.LeaveMapper;
 import com.jdk.projectinterface.mapper.RecordMapper;
 import com.jdk.projectinterface.service.AccountService;
 import com.jdk.projectinterface.service.CourseService;
+import com.jdk.projectinterface.service.CourseStudentService;
 import com.jdk.projectinterface.service.RecordService;
+import com.jdk.projectinterface.utils.Utils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.File;
+import java.io.*;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -29,10 +28,13 @@ class ProjectInterfaceApplicationTests {
     CourseMapper courseMapper;
 
     @Autowired
+    CourseService courseService;
+
+    @Autowired
     AccountService accountService;
 
     @Autowired
-    CourseService courseService;
+    CourseStudentService courseStudentService;
 
     @Autowired
     RecordMapper recordMapper;
@@ -50,8 +52,32 @@ class ProjectInterfaceApplicationTests {
 
     @Test
     void contextLoads() {
-        ServiceResponse<Course> courseByCode = courseService.findCourseByCode("396973");
-        System.out.println(courseByCode.toString());
+        List<Course> data = courseService.findCourseByStudentId(1).getData();
+        for (Course datum : data) {
+            System.out.println(datum);
+        }
+    }
+
+    @Test
+    void usePythonTest(){
+        /*StringBuffer sb = new StringBuffer();
+        try {
+            String path1 = "F:\\graduation_project\\project-interface\\src\\main\\resources\\static\\avatars\\jdk_1.png";
+            String path2 = "F:\\graduation_project\\project-interface\\src\\main\\resources\\static\\avatars\\test.png";
+            String[] args = new String[]{"F:\\Anaconda\\python.exe","F:/graduation_project/project_face/doCheck.py" , path1 , path2};
+            Process process = Runtime.getRuntime().exec(args);
+            process.waitFor();
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                sb.append(line);
+            }
+            in.close();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(sb);
+        System.out.println("Float:" + String.valueOf(Float.parseFloat(sb.toString())));*/
     }
 
 }
