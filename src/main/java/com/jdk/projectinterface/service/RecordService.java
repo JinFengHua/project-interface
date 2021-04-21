@@ -38,7 +38,8 @@ public class RecordService {
 
     public ServiceResponse<Record> modifyRecord(Record record){
         recordMapper.update(record, new QueryWrapper<Record>().eq("attend_id", record.getAttendId()).eq("student_id", record.getStudentId()));
-        return ServiceResponse.createResponse("修改成功");
+        String message = record.getRecordResult() == 1 ? "人脸识别未通过" : "签到成功";
+        return ServiceResponse.createResponse(message);
     }
 
     /**

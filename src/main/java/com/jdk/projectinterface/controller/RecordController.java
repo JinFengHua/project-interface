@@ -42,11 +42,7 @@ public class RecordController {
         Boolean recognitionResult = true;
         System.out.println(recognitionResult);
         Record record = new Record(attendId,studentId,Timestamp.valueOf(time),location,path);
-        if (recognitionResult){
-            record.setRecordResult(2);
-        } else {
-            record.setRecordResult(1);
-        }
+        record.setRecordResult(recognitionResult ? 2 : 1);
 
         return recordService.modifyRecord(record);
     }
