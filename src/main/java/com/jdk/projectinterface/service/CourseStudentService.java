@@ -29,13 +29,19 @@ public class CourseStudentService {
      *添加
      */
     public ServiceResponse<CourseStudent> addCourseStudent(String courseCode, Integer studentId) {
-        ServiceResponse<List<Course>> response = courseService.findCourseByColumn("course_code", courseCode);
-        if (response.getData().size() == 0){
+        List<Course> response = courseService.findCourseByColumn("course_code", courseCode).getData();
+        if (response.size() == 0){
             return ServiceResponse.createEmptyResponse("邀请码不存在");
         }
+        QueryWrapper<CourseStudent> query = new QueryWrapper<CourseStudent>().eq("course_id", response.get(0).getCourseId()).eq("student_id", studentId);
+        Integer count = courseStudentMapper.selectCount(query);
+        if (count != 0){
+            return ServiceResponse.createEmptyResponse("已加入该课程");
+        }
 
-        courseStudentMapper.insert(new CourseStudent(response.getData().get(0).getCourseId(),studentId));
-        return ServiceResponse.createResponse("加入课程成功");
+        courseStudentMapper.insert(new CourseStudent(response.get(0).getCourseId(),studentId));
+	    CourseStudent courseStudent = courseStudentMapper.selectOne(query);
+        return ServiceResponse.createResponse("加入课程成功",courseStudent);
     }
 
     /**

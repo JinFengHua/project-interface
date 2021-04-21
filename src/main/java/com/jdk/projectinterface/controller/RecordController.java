@@ -36,10 +36,12 @@ public class RecordController {
          */
         String path2 = "src/main/resources/static/check/" + studentId + "_" + attendId + ".png";
         String path1 = "src/main/resources/static/face/" + studentId + ".png";
-        Float confidence = Utils.doIdentify(path1, path2);
-        Boolean recognitionResult = confidence < 70;
+        String path = "/image/" + studentId + "_" + attendId + ".png";
+//        Float confidence = Utils.doIdentify(path1, path2);
+//        Boolean recognitionResult = confidence < 70;
+        Boolean recognitionResult = true;
         System.out.println(recognitionResult);
-        Record record = new Record(attendId,studentId,Timestamp.valueOf(time),location,path2);
+        Record record = new Record(attendId,studentId,Timestamp.valueOf(time),location,path);
         if (recognitionResult){
             record.setRecordResult(2);
         } else {
