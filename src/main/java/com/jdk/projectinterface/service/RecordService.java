@@ -24,18 +24,6 @@ public class RecordService {
     @Autowired
     CourseStudentService courseStudentService;
 
-    /**
-     * 学生签到
-     */
-   /* public ServiceResponse<Record> addRecord(Record record) {
-        recordMapper.insert(record);
-        if (record.getRecordResult() == 3){
-            return ServiceResponse.createResponse(record.getRecordRemark());
-        } else {
-            return ServiceResponse.createResponse(record.getRecordRemark());
-        }
-    }*/
-
     public ServiceResponse<Record> modifyRecord(Record record){
         recordMapper.update(record, new QueryWrapper<Record>().eq("attend_id", record.getAttendId()).eq("student_id", record.getStudentId()));
         String message = record.getRecordResult() == 1 ? "人脸识别未通过" : "签到成功";

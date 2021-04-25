@@ -13,10 +13,10 @@ import java.util.regex.Pattern;
 
 public class Utils {
 
-    public static Float doIdentify(String path1,String path2){
+    public static Integer doIdentify(String path1,String path2){
         StringBuffer sb = new StringBuffer();
         try {
-            String[] args = new String[]{"F:\\Anaconda\\python.exe","F:/graduation_project/project_face/doCheck.py" , path1 , path2};
+            String[] args = new String[]{"F:\\Anaconda\\envs\\face\\python.exe","F:/graduation_project/project_face/temp.py" , path1 , path2};
             Process process = Runtime.getRuntime().exec(args);
             process.waitFor();
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -28,7 +28,7 @@ public class Utils {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-        return Float.parseFloat(String.valueOf(sb));
+        return Integer.valueOf(String.valueOf(sb));
     }
 
     /**
