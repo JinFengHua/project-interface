@@ -149,8 +149,8 @@ public class AccountService {
      *通过教师id删除教师
      */
     public ServiceResponse<Teacher> deleteTeacher(Integer accountId) {
-        int i = teacherMapper.deleteById(accountId);
-        return ServiceResponse.createResponse(String.valueOf(i));
+        teacherMapper.deleteById(accountId);
+        return ServiceResponse.createResponse("删除成功");
     }
 
     /**
@@ -158,7 +158,7 @@ public class AccountService {
      */
     public ServiceResponse<Student> deleteStudent(Integer accountId) {
         studentMapper.deleteById(accountId);
-        return ServiceResponse.createResponse("删除失败");
+        return ServiceResponse.createResponse("删除成功");
     }
 
     /**

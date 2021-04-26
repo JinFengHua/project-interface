@@ -13,17 +13,38 @@
         <association property="student" javaType="com.jdk.projectinterface.bean.Student" resultMap="studentMap"/>
     </resultMap>
 
+    <resultMap id="Record-Student-Attend" type="com.jdk.projectinterface.bean.Record">
+        <id property="studentId" column="student_id"/>
+        <id property="attendId" column="attend_id"/>
+        <result property="recordTime" column="record_time"/>
+        <result property="recordLocation" column="record_location"/>
+        <result property="recordPhoto" column="record_photo"/>
+        <result property="recordResult" column="record_result"/>
+        <association property="student" javaType="com.jdk.projectinterface.bean.Student" resultMap="studentMap"/>
+        <association property="attend" javaType="com.jdk.projectinterface.bean.Attend" resultMap="attendMap"/>
+    </resultMap>
+
     <resultMap id="studentMap" type="com.jdk.projectinterface.bean.Student">
         <id property="studentId" column="student_id"/>
-        <id property="studentAccount" column="student_account"/>
-        <id property="studentPassword" column="student_password"/>
-        <id property="studentName" column="student_name"/>
-        <id property="studentSex" column="student_sex"/>
-        <id property="studentAvatar" column="student_avatar"/>
-        <id property="studentClass" column="student_class"/>
-        <id property="studentFace" column="student_face"/>
-        <id property="studentPhone" column="student_phone"/>
-        <id property="studentEmail" column="student_email"/>
+        <result property="studentAccount" column="student_account"/>
+        <result property="studentPassword" column="student_password"/>
+        <result property="studentName" column="student_name"/>
+        <result property="studentSex" column="student_sex"/>
+        <result property="studentAvatar" column="student_avatar"/>
+        <result property="studentClass" column="student_class"/>
+        <result property="studentFace" column="student_face"/>
+        <result property="studentPhone" column="student_phone"/>
+        <result property="studentEmail" column="student_email"/>
+    </resultMap>
+
+    <resultMap id="attendMap" type="com.jdk.projectinterface.bean.Attend">
+        <id property="attendId" column="attend_id"/>
+        <result property="courseId" column="course_id"/>
+        <result property="attendStart" column="attend_start"/>
+        <result property="attendEnd" column="attend_end"/>
+        <result property="attendLatitude" column="attend_latitude"/>
+        <result property="attendLongitude" column="attend_longitude"/>
+        <result property="attendLocation" column="attend_location"/>
     </resultMap>
 
     <select id="findRecordByTime" resultType="com.jdk.projectinterface.bean.Record">
@@ -36,7 +57,11 @@
         AND record.attend_id = '${attendId}'
         order by record.record_time desc,student.student_account
     </select>
-
+    <select id="findAllRecordWithAttend" resultMap="Record-Student-Attend">
+        SELECT * FROM record,student,attend where
+        record.student_id = student.student_id
+        and record.attend_id = attend.attend_id
+    </select>
 
 
 </mapper>

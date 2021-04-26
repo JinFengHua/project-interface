@@ -14,4 +14,5 @@ public interface LeaveMapper extends BaseMapper<Leave> {
 
     List<Leave> findAllLeave(Integer courseId);
 
+    List<Leave> findAllLeaveWithStudent();
 }

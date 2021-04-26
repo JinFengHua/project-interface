@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,9 +21,12 @@ public class Leave {
     private Integer leaveId;
     private Integer studentId;
     private Integer courseId;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp leaveTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp backTime;
     private String leaveReason;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp approvalTime;
     private Integer approvalResult;
     private String approvalRemark;

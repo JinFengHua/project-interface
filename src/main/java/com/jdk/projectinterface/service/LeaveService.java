@@ -77,4 +77,10 @@ public class LeaveService {
         List<Leave> leaves = leaveMapper.selectList(new QueryWrapper<Leave>().eq("student_id", studentId).orderByDesc("leave_time"));
         return ServiceResponse.createResponse("查询成功",leaves);
     }
+
+    public ServiceResponse<List<Leave>> findAllLeaveWithStudent() {
+        List<Leave> allLeave = leaveMapper.findAllLeaveWithStudent();
+        return ServiceResponse.createResponse("查询成功",allLeave);
+
+    }
 }

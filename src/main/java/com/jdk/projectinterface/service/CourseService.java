@@ -97,4 +97,9 @@ public class CourseService {
         }
         return ServiceResponse.createResponse("查询成功",courseList);
     }
+
+    public ServiceResponse<List<Course>> findAllCourse(){
+        List<Course> courses = courseMapper.findAllCourse();
+        return ServiceResponse.createResponse("查询成功",courses);
+    }
 }

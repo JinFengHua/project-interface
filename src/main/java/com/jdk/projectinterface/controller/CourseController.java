@@ -79,6 +79,11 @@ public class CourseController {
         return courseService.findCourseByTeacherId(teacherId);
     }
 
+    @GetMapping("/findAllCourse")
+    public Object findAllCourse(){
+        return courseService.findAllCourse();
+    }
+
     /**
      * 修改课程，如果修改后的名称在数据库重复，取消修改操作
      */
@@ -93,7 +98,7 @@ public class CourseController {
         map.put("course_id",courseId);
         Course courseOld = courseService.findCourseByMap(map).getData().get(0);
         map.clear();
-        if (courseName != null){
+        if (courseName != null && !courseName.equals(courseOld.getCourseName())){
             map.put("teacher_id",courseOld.getTeacherId());
             map.put("course_name",courseName);
             if (courseService.findCourseByMap(map).getData().size() != 0){

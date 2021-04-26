@@ -101,4 +101,9 @@ public class RecordService {
         }
         return ServiceResponse.createResponse("查询成功",list);
     }
+
+    public ServiceResponse<List<Record>> findAllRecordWithAttend(){
+        List<Record> records = recordMapper.findAllRecordWithAttend();
+        return ServiceResponse.createResponse("查找成功",records);
+    }
 }

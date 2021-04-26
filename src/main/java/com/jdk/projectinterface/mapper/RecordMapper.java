@@ -14,4 +14,5 @@ public interface RecordMapper extends BaseMapper<Record> {
 //    查询某次考勤任务的所以签到记录
     List<Record> findAllRecord(Integer attendId);
 
+    List<Record> findAllRecordWithAttend();
 }

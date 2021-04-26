@@ -31,24 +31,15 @@ public class AccountController {
 
     /**
      * 注销用户
-     * @param adminId 执行操作的管理员id
-     * @param adminPassword 执行操作的管理员密码
      * @param type 被删除用户角色
      * @param accountId 被删用户的账户id
      * @return 执行删除操作的结果
      */
     @GetMapping("/deleteAccount")
     public Object deleteAccount(
-            @RequestParam("adminId") Integer adminId,
-            @RequestParam("adminPassword") String adminPassword,
             @RequestParam("type") Integer type,
             @RequestParam("accountId") Integer accountId
     ){
-        ServiceResponse response;
-        response = accountService.findAdminById(adminId,adminPassword);
-        if (response.getCode() != 200){
-            return ServiceResponse.createFailResponse("管理员信息错误");
-        }
         switch (type){
             case 1:
                 /**

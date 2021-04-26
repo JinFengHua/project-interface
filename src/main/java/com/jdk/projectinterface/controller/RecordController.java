@@ -98,4 +98,9 @@ public class RecordController {
         return recordService.findAllStudentRecord(courseId);
     }
 
+    @GetMapping("/findAllRecordWithAttend")
+    public Object findAllRecordWithAttend(){
+        return recordService.findAllRecordWithAttend();
+    }
+
 }

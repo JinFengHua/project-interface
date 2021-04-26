@@ -31,4 +31,9 @@ public class ExceptionController {
         return ServiceResponse.createFailResponse("索引越界异常");
     }
 
+    @ExceptionHandler(Exception.class)
+    public Object exceptionH(){
+        return ServiceResponse.createFailResponse("异常申请");
+    }
+
 }

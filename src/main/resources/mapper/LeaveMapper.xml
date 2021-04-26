@@ -29,5 +29,9 @@
         WHERE leave_attend.student_id = student.student_id
         AND leave_attend.course_id = '${courseId}'
     </select>
+    <select id="findAllLeaveWithStudent" resultMap="Leave-Student">
+        SELECT * FROM leave_attend,student
+        WHERE leave_attend.student_id = student.student_id
+    </select>
 
 </mapper>
