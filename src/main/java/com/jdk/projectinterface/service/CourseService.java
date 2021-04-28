@@ -102,4 +102,24 @@ public class CourseService {
         List<Course> courses = courseMapper.findAllCourse();
         return ServiceResponse.createResponse("查询成功",courses);
     }
+
+    public ServiceResponse<List<Course>> findCourseByTeacherIdWithName(Integer teacherId, String name) {
+        List<Course> courses = courseMapper.findTeacherAllCourseWithName(teacherId,name);
+        return ServiceResponse.createResponse("查询成功",courses);
+    }
+
+    public ServiceResponse<List<Course>> findCourseByStudentIdWithName(Integer studentId, String name) {
+        List<CourseStudent> courseIdList = courseStudentMapper.selectList(new QueryWrapper<CourseStudent>().eq("student_id", studentId));
+        List<Course> courseList = new ArrayList<>();
+        for (CourseStudent courseStudent : courseIdList) {
+            Course course = courseMapper.selectOne(new QueryWrapper<Course>().eq("course_id",courseStudent.getCourseId()).like("course_name",name));
+            if (Utils.isEmpty(course)){
+                continue;
+            }
+            course.setTeacher(teacherMapper.selectById(course.getTeacherId()));
+            course.setJoinTime(courseStudent.getJoinTime());
+            courseList.add(course);
+        }
+        return ServiceResponse.createResponse("查询成功",courseList);
+    }
 }

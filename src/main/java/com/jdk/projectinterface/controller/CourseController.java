@@ -69,6 +69,12 @@ public class CourseController {
         return courseService.findCourseByStudentId(studentId);
     }
 
+    @GetMapping("/findCourseByStudentIdWithName")
+    public Object findCourseByStudentIdWithName(@RequestParam("studentId") Integer studentId,
+                                                @RequestParam("name") String name){
+        return courseService.findCourseByStudentIdWithName(studentId,name);
+    }
+
     @GetMapping("/findCourseByCode")
     public Object findCourseByCode(@RequestParam("code") String code){
         return courseService.findCourseByCode(code);
@@ -77,6 +83,12 @@ public class CourseController {
     @GetMapping("/findCourseByTeacherId")
     public Object findCourseByTeacherId(@RequestParam("teacherId") Integer teacherId){
         return courseService.findCourseByTeacherId(teacherId);
+    }
+
+    @GetMapping("/findCourseByTeacherIdWithName")
+    public Object findCourseByTeacherIdWithName(@RequestParam("teacherId") Integer teacherId,
+                                                @RequestParam("name") String name){
+        return courseService.findCourseByTeacherIdWithName(teacherId,name);
     }
 
     @GetMapping("/findAllCourse")

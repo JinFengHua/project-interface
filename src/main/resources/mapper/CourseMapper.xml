@@ -43,4 +43,11 @@
         FROM course,teacher
         WHERE course.teacher_id = teacher.teacher_id
     </select>
+    <select id="findTeacherAllCourseWithName" resultMap="UnionTableQuery">
+        SELECT *
+        FROM course,teacher
+        WHERE course.teacher_id = teacher.teacher_id
+        and course.teacher_id='${teacherId}'
+        and course_name like '%${name}%'
+    </select>
 </mapper>

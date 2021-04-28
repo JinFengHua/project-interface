@@ -15,4 +15,14 @@
         <![CDATA[ attend_start > '${joinTime}' and course_id ='${courseId}'
         order by attend_start asc ]]>
     </select>
+    <select id="findStudentAttendByTime" resultType="com.jdk.projectinterface.bean.Attend">
+        select * from attend where
+        <![CDATA[ attend_start > '${joinTime}' and course_id ='${courseId}'
+        and DATE_FORMAT(attend_start,'%Y-%m-%d %H:%i:%s') LIKE '%${time}%'
+        order by attend_start asc ]]>
+    </select>
+    <select id="findAttendByTime" resultType="com.jdk.projectinterface.bean.Attend">
+        select * from attend where course_id ='${courseId}'
+        and DATE_FORMAT(attend_start,'%Y-%m-%d %H:%i:%s') LIKE '%${time}%'
+    </select>
 </mapper>

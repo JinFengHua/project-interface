@@ -105,4 +105,14 @@ public class AttendService {
         List<Attend> attends = attendMapper.findStudentAttend(courseId,joinTime);
         return ServiceResponse.createResponse("查询成功",attends);
     }
+
+    public ServiceResponse<List<Attend>> findStudentAttendByTime(Integer courseId, Timestamp joinTime, String time) {
+        List<Attend> attends = attendMapper.findStudentAttendByTime(courseId,joinTime,time);
+        return ServiceResponse.createResponse("查询成功",attends);
+    }
+
+    public ServiceResponse<List<Attend>> findAttendByTime(Integer courseId, String time) {
+        List<Attend> attends = attendMapper.findAttendByTime(courseId,time);
+        return ServiceResponse.createResponse("查询成功",attends);
+    }
 }

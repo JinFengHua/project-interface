@@ -75,6 +75,11 @@ public class AttendController {
         return attendService.findAttendByMap(map);
     }
 
+    @GetMapping("/findAttendByTime")
+    public Object findAttendByTime(@RequestParam("courseId") Integer courseId,@RequestParam("time") String time){
+        return attendService.findAttendByTime(courseId,time);
+    }
+
     @GetMapping("/findAttendByCourseId")
     public Object findAttendByCourseId(@RequestParam("courseId") Integer courseId){
         return attendService.findAttendByCourseId(courseId);
@@ -83,6 +88,12 @@ public class AttendController {
     @GetMapping("/findStudentAttend")
     public Object findStudentAttend(@RequestParam("courseId") Integer courseId,@RequestParam("joinTime") Timestamp joinTime){
         return attendService.findStudentAttend(courseId,joinTime);
+    }
+
+    @GetMapping("/findStudentAttendByTime")
+    public Object findStudentAttendByTime(@RequestParam("courseId") Integer courseId,@RequestParam("joinTime") Timestamp joinTime,
+                                          @RequestParam("time") String time){
+        return attendService.findStudentAttendByTime(courseId,joinTime,time);
     }
 
     /**

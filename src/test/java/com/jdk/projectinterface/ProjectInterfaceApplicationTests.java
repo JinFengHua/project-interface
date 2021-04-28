@@ -2,10 +2,12 @@ package com.jdk.projectinterface;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.jdk.projectinterface.bean.*;
 import com.jdk.projectinterface.common.ServiceResponse;
 import com.jdk.projectinterface.mapper.CourseMapper;
+import com.jdk.projectinterface.mapper.CourseStudentMapper;
 import com.jdk.projectinterface.mapper.LeaveMapper;
 import com.jdk.projectinterface.mapper.RecordMapper;
 import com.jdk.projectinterface.service.AccountService;
@@ -37,6 +39,9 @@ class ProjectInterfaceApplicationTests {
     CourseStudentService courseStudentService;
 
     @Autowired
+    CourseStudentMapper courseStudentMapper;
+
+    @Autowired
     RecordMapper recordMapper;
 
     @Autowired
@@ -52,10 +57,8 @@ class ProjectInterfaceApplicationTests {
 
     @Test
     void contextLoads() {
-        List<Course> data = courseService.findCourseByStudentId(1).getData();
-        for (Course datum : data) {
-            System.out.println(datum);
-        }
+        List<CourseStudent> courseIdList = courseStudentMapper.selectList(new QueryWrapper<CourseStudent>().eq("student_id", 1));
+        System.out.println(courseIdList.size());
     }
 
     @Test
