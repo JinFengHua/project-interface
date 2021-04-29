@@ -19,9 +19,9 @@ public class Attend {
     @TableId(type = IdType.AUTO)
     private Integer attendId;
     private Integer courseId;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Timestamp attendStart;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Timestamp attendEnd;
     private Double attendLongitude;
     private Double attendLatitude;
