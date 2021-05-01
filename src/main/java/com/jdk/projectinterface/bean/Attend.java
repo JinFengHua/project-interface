@@ -26,16 +26,19 @@ public class Attend {
     private Double attendLongitude;
     private Double attendLatitude;
     private String attendLocation;
+    private Integer attendType;
+    private String attendGesture;
 
     @TableField(exist = false)
     private List<Record> records;
 
-    public Attend(Integer courseId, Timestamp attendStart, Timestamp attendEnd, Double attendLongitude, Double attendLatitude, String attendLocation) {
+    public Attend(Integer courseId, Timestamp attendStart, Timestamp attendEnd, Double attendLongitude, Double attendLatitude, String attendLocation, Integer attendType) {
         this.courseId = courseId;
         this.attendStart = attendStart;
         this.attendEnd = attendEnd;
         this.attendLongitude = attendLongitude;
         this.attendLatitude = attendLatitude;
         this.attendLocation = attendLocation;
+        this.attendType = attendType;
     }
 }

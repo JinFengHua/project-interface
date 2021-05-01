@@ -29,9 +29,14 @@ public class AttendController {
             @RequestParam("end") Timestamp end,
             @RequestParam("longitude") Double longitude,
             @RequestParam("latitude") Double latitude,
-            @RequestParam("location") String location
+            @RequestParam("location") String location,
+            @RequestParam("type") Integer type,
+            @RequestParam(value = "gesture",required = false) String gesture
     ){
-        Attend attend = new Attend(courseId,start,end,longitude,latitude,location);
+        Attend attend = new Attend(courseId,start,end,longitude,latitude,location,type);
+        if (type == 2){
+            attend.setAttendGesture(gesture);
+        }
         return attendService.addAttend(attend);
     }
 
