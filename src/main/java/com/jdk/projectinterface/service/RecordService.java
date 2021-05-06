@@ -84,19 +84,25 @@ public class RecordService {
      */
     public ServiceResponse<List<Statistics>> findAllStudentRecord(Integer courseId) {
         List<CourseStudent> allStudent = courseStudentService.findAllByCourseId(courseId).getData();
+        List<Attend> attends = attendService.findAttendByCourseId(courseId).getData();
         QueryWrapper<Record> wrapper = new QueryWrapper<>();
         List<Statistics> list = new ArrayList<>();
         for (CourseStudent courseStudent : allStudent) {
             Student student = courseStudent.getStudent();
-            Integer absentNum = recordMapper.selectCount(wrapper.eq("student_id", student.getStudentId()).eq("record_result", 0));
-            wrapper.clear();
-            Integer failNum = recordMapper.selectCount(wrapper.eq("student_id", student.getStudentId()).eq("record_result", 1));
-            wrapper.clear();
-            Integer successNum = recordMapper.selectCount(wrapper.eq("student_id", student.getStudentId()).eq("record_result", 2));
-            wrapper.clear();
-            Integer leaveNum = recordMapper.selectCount(wrapper.eq("student_id", student.getStudentId()).eq("record_result", 3));
-            wrapper.clear();
-
+            Integer absentNum = 0;
+            Integer failNum = 0;
+            Integer successNum = 0;
+            Integer leaveNum = 0;
+            for (Attend attend : attends) {
+                absentNum = absentNum + recordMapper.selectCount(wrapper.eq("attend_id",attend.getAttendId()).eq("student_id", student.getStudentId()).eq("record_result", 0));
+                wrapper.clear();
+                failNum = failNum + recordMapper.selectCount(wrapper.eq("attend_id",attend.getAttendId()).eq("student_id", student.getStudentId()).eq("record_result", 1));
+                wrapper.clear();
+                successNum = successNum + recordMapper.selectCount(wrapper.eq("attend_id",attend.getAttendId()).eq("student_id", student.getStudentId()).eq("record_result", 2));
+                wrapper.clear();
+                leaveNum = leaveNum + recordMapper.selectCount(wrapper.eq("attend_id",attend.getAttendId()).eq("student_id", student.getStudentId()).eq("record_result", 3));
+                wrapper.clear();
+            }
             list.add(new Statistics(student.getStudentName(),student.getStudentAccount(),absentNum,failNum,successNum,leaveNum));
         }
         return ServiceResponse.createResponse("查询成功",list);

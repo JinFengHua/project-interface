@@ -50,12 +50,16 @@ public class RecordController {
     public Object modifyRecord(
             @RequestParam("attendId") Integer attendId,
             @RequestParam("studentId") Integer studentId,
-            @RequestParam("result") Integer result
+            @RequestParam("result") Integer result,
+            @RequestParam(value = "time",required = false) Timestamp time,
+            @RequestParam(value = "location",required = false) String location
     ){
         Record record = new Record();
         record.setAttendId(attendId);
         record.setStudentId(studentId);
         record.setRecordResult(result);
+        record.setRecordTime(time);
+        record.setRecordLocation(location);
         return recordService.modifyRecord(record);
     }
 
