@@ -63,11 +63,38 @@ class ProjectInterfaceApplicationTests {
 
     @Test
     void usePythonTest(){
-        /*StringBuffer sb = new StringBuffer();
+        String path = new File("").getAbsolutePath() + "\\src\\python\\face.exe";
+        String path1 = "src/main/resources/static/face/4.png";
+        String path2 = "src/main/resources/static/check/4_16.png";
+        String[] args = new String[]{path , path1 , path2};
+        StringBuffer sb = new StringBuffer();
+        Process process = null;
         try {
-            String path1 = "F:\\graduation_project\\project-interface\\src\\main\\resources\\static\\avatars\\jdk_1.png";
-            String path2 = "F:\\graduation_project\\project-interface\\src\\main\\resources\\static\\avatars\\test.png";
-            String[] args = new String[]{"F:\\Anaconda\\python.exe","F:/graduation_project/project_face/doCheck.py" , path1 , path2};
+            process = new ProcessBuilder(args).start();
+            System.out.println(process.isAlive());
+            int exitVal = process.waitFor();
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                sb.append(line);
+            }
+            in.close();
+
+            System.out.println(exitVal);
+            System.out.println(process.isAlive());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(sb.length());
+    }
+
+    @Test
+    public void test(){
+        String path1 = "src/main/resources/static/face/4.png";
+        String path2 = "src/main/resources/static/check/4_16.png";
+        StringBuffer sb = new StringBuffer();
+        try {
+            String[] args = new String[]{"F:\\Anaconda\\envs\\face\\python.exe","F:/graduation_project/project_face/face.py" , path1 , path2};
             Process process = Runtime.getRuntime().exec(args);
             process.waitFor();
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -80,7 +107,6 @@ class ProjectInterfaceApplicationTests {
             e.printStackTrace();
         }
         System.out.println(sb);
-        System.out.println("Float:" + String.valueOf(Float.parseFloat(sb.toString())));*/
     }
 
 }

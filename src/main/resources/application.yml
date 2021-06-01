@@ -2,8 +2,10 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/project_database?serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
+#    数据库用户名
     username: root
-    password: 1
+#    数据库密码
+    password:
     type: com.zaxxer.hikari.HikariDataSource
   thymeleaf:
     prefix: classpath:/templates/

@@ -25,6 +25,9 @@ public class RecordService {
     CourseStudentService courseStudentService;
 
     public ServiceResponse<Record> modifyRecord(Record record){
+        /**
+         * 在修改之前，先检查其
+         */
         recordMapper.update(record, new QueryWrapper<Record>().eq("attend_id", record.getAttendId()).eq("student_id", record.getStudentId()));
         String message = record.getRecordResult() == 1 ? "人脸识别未通过" : "签到成功";
         return ServiceResponse.createResponse(message);
@@ -55,20 +58,6 @@ public class RecordService {
     public ServiceResponse<List<Record>> findRecordByTime(String value){
         List<Record> records = recordMapper.findRecordByTime(value);
         return ServiceResponse.createResponse("查询成功",records);
-    }
-
-    public Boolean inClass(Integer attendId,Double longitude,Double latitude){
-        Map<String, Object> map = new HashMap<>();
-        map.put("attend_id",attendId);
-        ServiceResponse<List<Attend>> attend = attendService.findAttendByMap(map);
-        Double attendLongitude = attend.getData().get(0).getAttendLongitude();
-        Double attendLatitude = attend.getData().get(0).getAttendLatitude();
-        Double distance = Math.sqrt(Math.pow((attendLatitude - latitude),2) + Math.pow((attendLongitude - longitude),2));
-
-        if (distance > 10){
-            return false;
-        }
-        return true;
     }
 
     /**

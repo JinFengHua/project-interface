@@ -64,8 +64,9 @@ public class LeaveController {
     }
 
     @GetMapping("/findAllLeaveByStudentId")
-    public Object findAllLeaveByStudentId(@RequestParam("studentId") Integer studentId){
-        return leaveService.findAllLeaveByStudentId(studentId);
+    public Object findAllLeaveByStudentId(@RequestParam("courseId") Integer courseId,
+                                          @RequestParam("studentId") Integer studentId){
+        return leaveService.findAllLeaveByStudentId(courseId,studentId);
     }
 
     @GetMapping("/findLeaveByColumn")

@@ -36,10 +36,9 @@ public class RecordController {
          */
         String path2 = "src/main/resources/static/check/" + studentId + "_" + attendId + ".png";
         String path1 = "src/main/resources/static/face/" + studentId + ".png";
-        String path = "/image/face/" + studentId + "_" + attendId + ".png";
+        String path = "/image/check/" + studentId + "_" + attendId + ".png";
         Integer result = Utils.doIdentify(path1, path2);
         System.out.println("confidence = " + result);
-//        Boolean recognitionResult = true;
         Record record = new Record(attendId,studentId,Timestamp.valueOf(time),location,path);
         record.setRecordResult(result);
 

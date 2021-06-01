@@ -13,10 +13,16 @@ import java.util.regex.Pattern;
 
 public class Utils {
 
+    /**
+     * 调用人脸识别脚本并获取识别结果
+     * @param path1 人脸图片地址
+     * @param path2 考勤图片地址
+     * @return 2：成功 1：失败
+     */
     public static Integer doIdentify(String path1,String path2){
         StringBuffer sb = new StringBuffer();
         try {
-            String[] args = new String[]{"F:\\Anaconda\\envs\\face\\python.exe","F:/graduation_project/project_face/temp.py" , path1 , path2};
+            String[] args = new String[]{"F:\\Anaconda\\envs\\face\\python.exe","F:/graduation_project/project_face/face.py" , path1 , path2};
             Process process = Runtime.getRuntime().exec(args);
             process.waitFor();
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));

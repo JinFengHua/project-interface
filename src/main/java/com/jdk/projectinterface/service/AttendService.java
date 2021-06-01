@@ -79,7 +79,7 @@ public class AttendService {
      * 查询
      */
     public ServiceResponse<List<Attend>> findAttendByColumn(String column,Object value){
-        List<Attend> attends = attendMapper.selectList(new QueryWrapper<Attend>().like(column, value));
+        List<Attend> attends = attendMapper.selectList(new QueryWrapper<Attend>().like(column, value).orderByDesc("attend_start"));
         return ServiceResponse.backFailResponse("查询结果为空","查询成功", attends);
     }
 

@@ -118,13 +118,9 @@ public class AccountController {
             @RequestParam(value = "avatar",required = false) String avatar
     ){
         ServiceResponse<Teacher> response;
-        if (!Utils.isPhone(phone) || !Utils.IsEmail(email)){
-            response = ServiceResponse.createFailResponse("电话或邮箱填写有误");
-        } else {
-            Teacher teacher = new Teacher(adminId,account,password,name,sex,phone,email,avatar);
-            teacher.setTeacherId(teacherId);
-            response = accountService.modifyTeacher(teacher);
-        }
+        Teacher teacher = new Teacher(adminId,account,password,name,sex,phone,email,avatar);
+        teacher.setTeacherId(teacherId);
+        response = accountService.modifyTeacher(teacher);
         return response;
     }
 

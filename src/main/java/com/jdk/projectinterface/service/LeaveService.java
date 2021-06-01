@@ -73,8 +73,8 @@ public class LeaveService {
 
     }
 
-    public ServiceResponse<List<Leave>> findAllLeaveByStudentId(Integer studentId) {
-        List<Leave> leaves = leaveMapper.selectList(new QueryWrapper<Leave>().eq("student_id", studentId).orderByDesc("leave_time"));
+    public ServiceResponse<List<Leave>> findAllLeaveByStudentId(Integer courseId, Integer studentId) {
+        List<Leave> leaves = leaveMapper.selectList(new QueryWrapper<Leave>().eq("course_id",courseId).eq("student_id", studentId).orderByDesc("leave_time"));
         return ServiceResponse.createResponse("查询成功",leaves);
     }
 
