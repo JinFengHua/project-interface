@@ -7,7 +7,7 @@ import face_recognition
 import cv2
 import sys
 
-# 首先提高被识别图片的清晰度，以便提高识别率
+#首先提高被识别图片的清晰度，以便提高识别率
 def recongnition(image,face):
     image = cv2.imread(image)
     small_frame = cv2.resize(image, (0, 0), fx=0.25, fy=0.25)
@@ -37,7 +37,7 @@ def recongnition(image,face):
     return 1
 
 if __name__ == '__main__':
-    # 接收需要进行识别的两个图片的地址
+    #接收需要进行识别的两个图片的地址
     path1 = sys.argv[1]
     path2 = sys.argv[2]
 
