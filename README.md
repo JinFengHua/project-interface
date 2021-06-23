@@ -5,3 +5,5 @@
 所调用的python脚本文件内容地址：https://blog.csdn.net/qq_41563868/article/details/117447552
 
 另外数据库使用的是MySQL，代码地址：https://blog.csdn.net/qq_41563868/article/details/117787600
+
+在后台搭建完成之后，请修改Android中com.example.project_android.utils包下的ProjectStatic类中的SERVICE_PATH的值为服务端的ip。
